@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Karupi Pet Store 🐾</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lavender: #b57bee;
+    --lavender-light: #e8d5f7;
+    --lavender-mid: #c99ef0;
+    --lavender-dark: #7c3aad;
+    --lavender-pale: #f5eeff;
+    --lavender-deep: #5b1fa0;
+    --card-bg: #fdf8ff;
+    --text: #2d1b4e;
+    --text-light: #7a5fa0;
+    --accent: #ff6eb4;
+    --accent2: #ffb347;
+    --green: #4caf85;
+    --shadow: 0 8px 32px rgba(120,60,180,0.13);
+    --shadow-hover: 0 16px 48px rgba(120,60,180,0.22);
+    --radius: 20px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--lavender-pale);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* MARQUEE */
+  .marquee-bar {
+    background: linear-gradient(90deg, var(--lavender-dark), var(--lavender), var(--lavender-dark));
+    color: white; padding: 10px 0; overflow: hidden;
+    font-weight: 700; font-size: 14px; letter-spacing: 0.5px;
+  }
+  .marquee-track { display: flex; animation: marquee 32s linear infinite; white-space: nowrap; }
+  .marquee-track span { padding: 0 36px; }
+  .marquee-track span::before { content: '🐾 '; }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--lavender-deep) 0%, var(--lavender-dark) 55%, var(--lavender) 100%);
+    padding: 0 32px; position: sticky; top: 0; z-index: 1000;
+    box-shadow: 0 4px 24px rgba(90,30,160,0.3);
+  }
+  .header-inner {
+    max-width: 1300px; margin: 0 auto;
+    display: flex; align-items: center; gap: 24px; height: 76px;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
+  .logo-icon {
+    width: 50px; height: 50px;
+    background: linear-gradient(135deg, var(--accent), var(--lavender-light));
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 24px; box-shadow: 0 4px 16px rgba(255,126,179,0.4);
+  }
+  .logo-name { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 900; color: white; line-height: 1.1; text-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+  .logo-sub { font-size: 10px; font-weight: 700; color: var(--lavender-light); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 8px; margin-left: auto; }
+  .nav-link {
+    background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
+    color: white; border-radius: 14px; padding: 8px 18px; cursor: pointer;
+    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px;
+    text-decoration: none; display: flex; align-items: center; gap: 6px;
+    transition: all 0.2s;
+  }
+  .nav-link:hover { background: rgba(255,255,255,0.28); transform: translateY(-1px); }
+  .nav-link.active { background: rgba(255,255,255,0.35); }
+
+  /* HERO BANNER */
+  .about-hero {
+    background: linear-gradient(135deg, var(--lavender-dark), var(--lavender-deep) 50%, var(--lavender-mid));
+    padding: 80px 32px; text-align: center; position: relative; overflow: hidden;
+  }
+  .about-hero::before {
+    content: ''; position: absolute; top: -80px; left: -80px;
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, rgba(181,123,238,0.25) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .about-hero::after {
+    content: ''; position: absolute; bottom: -80px; right: -40px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,110,180,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .about-hero-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+  .about-hero h1 {
+    font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 64px);
+    font-weight: 900; color: white; line-height: 1.1; text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    margin-bottom: 16px;
+  }
+  .about-hero h1 span { color: var(--lavender-light); }
+  .about-hero p { font-size: 18px; color: rgba(255,255,255,0.85); font-weight: 600; line-height: 1.6; }
+
+  /* MAIN */
+  main { max-width: 1100px; margin: 0 auto; padding: 60px 24px; }
+
+  /* STORY SECTION */
+  .story-section {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; margin-bottom: 72px;
+  }
+  .story-text h2 {
+    font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900;
+    color: var(--lavender-deep); margin-bottom: 18px;
+  }
+  .story-text p { font-size: 15px; color: #5a4070; font-weight: 600; line-height: 1.8; margin-bottom: 14px; }
+  .story-emoji-box {
+    background: linear-gradient(135deg, var(--lavender-light), #f0d8ff);
+    border-radius: 28px; padding: 48px 36px; text-align: center;
+    box-shadow: var(--shadow); border: 2px solid var(--lavender-light);
+    animation: float 4s ease-in-out infinite;
+  }
+  .story-emoji-box .big-emoji { font-size: 96px; display: block; margin-bottom: 12px; }
+  .story-emoji-box p { font-weight: 800; font-size: 16px; color: var(--lavender-dark); }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+  /* VALUES */
+  .values-section { margin-bottom: 72px; }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 900;
+    color: var(--lavender-deep); text-align: center; margin-bottom: 8px;
+  }
+  .section-sub { text-align: center; color: var(--text-light); font-weight: 600; margin-bottom: 40px; font-size: 15px; }
+  .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+  .value-card {
+    background: var(--card-bg); border-radius: var(--radius); padding: 36px 24px;
+    text-align: center; box-shadow: var(--shadow); border: 1.5px solid var(--lavender-light);
+    transition: transform 0.25s, box-shadow 0.25s; animation: fadeUp 0.5s ease both;
+  }
+  .value-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+  .value-icon { font-size: 48px; margin-bottom: 16px; display: block; }
+  .value-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+  .value-card p { font-size: 14px; color: var(--text-light); font-weight: 600; line-height: 1.6; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* STATS */
+  .stats-section {
+    background: linear-gradient(135deg, var(--lavender-dark), var(--lavender-deep));
+    border-radius: 28px; padding: 56px 40px; margin-bottom: 72px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 32px; text-align: center;
+    box-shadow: 0 12px 48px rgba(90,30,160,0.25);
+  }
+  .stat-item { color: white; }
+  .stat-number { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 900; color: var(--lavender-light); display: block; line-height: 1; margin-bottom: 8px; }
+  .stat-label { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* TEAM */
+  .team-section { margin-bottom: 72px; }
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; }
+  .team-card {
+    background: var(--card-bg); border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow); border: 1.5px solid var(--lavender-light);
+    transition: transform 0.25s, box-shadow 0.25s; animation: fadeUp 0.5s ease both; text-align: center;
+  }
+  .team-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+  .team-avatar {
+    width: 100%; height: 180px;
+    background: linear-gradient(135deg, var(--lavender-light), #f0d0ff);
+    display: flex; align-items: center; justify-content: center; font-size: 80px;
+  }
+  .team-info { padding: 22px 18px; }
+  .team-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .team-role { font-size: 13px; color: var(--lavender-dark); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .team-desc { font-size: 13px; color: var(--text-light); font-weight: 600; line-height: 1.55; }
+
+  /* CTA */
+  .cta-section {
+    background: linear-gradient(135deg, var(--accent), #ff4d9e);
+    border-radius: 28px; padding: 56px 40px; text-align: center;
+    box-shadow: 0 12px 40px rgba(255,110,180,0.3); margin-bottom: 40px;
+  }
+  .cta-section h2 { font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 900; color: white; margin-bottom: 14px; }
+  .cta-section p { font-size: 16px; color: rgba(255,255,255,0.9); font-weight: 600; margin-bottom: 28px; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: white; color: var(--accent); border: none; border-radius: 16px;
+    padding: 16px 36px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 17px;
+    cursor: pointer; text-decoration: none; transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+
+  /* FOOTER */
+  footer {
+    background: linear-gradient(135deg, var(--lavender-deep), var(--lavender-dark));
+    color: white; padding: 48px 32px 28px; margin-top: 40px;
+  }
+  .footer-inner {
+    max-width: 1300px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 36px; margin-bottom: 36px;
+  }
+  .footer-col h3 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 14px; color: var(--lavender-light); }
+  .footer-col p, .footer-col a { font-size: 14px; color: rgba(255,255,255,0.72); text-decoration: none; display: block; margin-bottom: 8px; font-weight: 600; transition: color 0.2s; }
+  .footer-col a:hover { color: white; }
+  .footer-bottom { text-align: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.15); font-size: 14px; color: rgba(255,255,255,0.6); font-weight: 600; }
+
+  @media(max-width: 768px) {
+    .story-section { grid-template-columns: 1fr; gap: 32px; }
+    .stats-section { padding: 36px 24px; }
+    main { padding: 40px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Welcome to Karupi Pet Store!</span><span>Free Delivery on Orders Over ₹2000</span>
+    <span>100% Health Guaranteed Pets</span><span>24/7 Vet Support Available</span>
+    <span>Premium Dogs Starting ₹18,000</span><span>Adorable Cats &amp; Kittens Available</span>
+    <span>Exotic Fish &amp; Aquarium Collections</span><span>Beautiful Birds &amp; Parrots</span>
+    <span>Cute Rabbits &amp; Hamsters</span><span>Call Us: +91 9750784578</span>
+    <span>Welcome to Karupi Pet Store!</span><span>Free Delivery on Orders Over ₹2000</span>
+    <span>100% Health Guaranteed Pets</span><span>24/7 Vet Support Available</span>
+    <span>Premium Dogs Starting ₹18,000</span><span>Adorable Cats &amp; Kittens Available</span>
+    <span>Exotic Fish &amp; Aquarium Collections</span><span>Beautiful Birds &amp; Parrots</span>
+    <span>Cute Rabbits &amp; Hamsters</span><span>Call Us: +91 9750784578</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="index.html">
+      <div class="logo-icon">🐾</div>
+      <div>
+        <div class="logo-name">Karupi Pet Store</div>
+        <div class="logo-sub">Your Happy Pet Family</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="karupistore.html">🏠 Home</a>
+      <a class="nav-link active" href="about.html">🐾 About Us</a>
+      <a class="nav-link active" href="faqs.html">💬 FAQs</a>
+      <a class="nav-link active" href="health-tips.html">🌿 Health Tips</a>
+      <a class="nav-link active" href="pet-care-blog.html">Pet Care Blog</a>
+
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="about-hero-inner">
+    <h1>We're More Than a<br><span>Pet Store</span> 🐾</h1>
+    <p>We're a family of passionate animal lovers dedicated to connecting happy pets with loving homes across India.</p>
+  </div>
+</section>
+
+<main>
+
+  <!-- OUR STORY -->
+  <section class="story-section">
+    <div class="story-text">
+      <h2>Our Story 🌟</h2>
+      <p>Karupi Pet Store was born out of pure love for animals. Founded in Puducherry, we started with a small shop and a big dream — to make pet adoption joyful, safe, and accessible for every family in India.</p>
+      <p>Over the years, we've grown into one of South India's most trusted pet destinations, offering over 100+ breeds of dogs, cats, birds, fish, reptiles and more — all health-certified, vaccinated, and ready to become your best friend.</p>
+      <p>Every pet in our store is treated like family. We believe that when you adopt from us, you don't just get a pet — you gain a lifelong companion and a support system that cares deeply about your pet's wellbeing.</p>
+    </div>
+    <div class="story-emoji-box">
+      <span class="big-emoji">🐾</span>
+      <p>Born in Puducherry<br>with Love for Animals</p>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-section">
+    <div class="stat-item">
+      <span class="stat-number">50K+</span>
+      <span class="stat-label">Happy Families</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">100+</span>
+      <span class="stat-label">Pet Breeds</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">10+</span>
+      <span class="stat-label">Years of Love</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">24/7</span>
+      <span class="stat-label">Vet Support</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">100%</span>
+      <span class="stat-label">Health Guaranteed</span>
+    </div>
+  </div>
+
+  <!-- OUR VALUES -->
+  <section class="values-section">
+    <div class="section-title">What We Stand For 💜</div>
+    <div class="section-sub">Every decision we make is guided by these core values</div>
+    <div class="values-grid">
+      <div class="value-card" style="animation-delay:0.05s">
+        <span class="value-icon">❤️</span>
+        <h3>Animal Welfare First</h3>
+        <p>Every pet in our care receives love, proper nutrition, and medical attention before finding their forever home.</p>
+      </div>
+      <div class="value-card" style="animation-delay:0.1s">
+        <span class="value-icon">✅</span>
+        <h3>Health Guarantee</h3>
+        <p>All our pets are vet-checked, vaccinated, and dewormed. We provide full health certificates with every adoption.</p>
+      </div>
+      <div class="value-card" style="animation-delay:0.15s">
+        <span class="value-icon">🤝</span>
+        <h3>Transparent Practices</h3>
+        <p>No hidden fees, no misleading information. We believe in honest relationships with every customer and every pet.</p>
+      </div>
+      <div class="value-card" style="animation-delay:0.2s">
+        <span class="value-icon">🌱</span>
+        <h3>Ethical Sourcing</h3>
+        <p>We work only with responsible, licensed breeders and support captive-bred specimens for exotic species.</p>
+      </div>
+      <div class="value-card" style="animation-delay:0.25s">
+        <span class="value-icon">📞</span>
+        <h3>Lifelong Support</h3>
+        <p>Our relationship doesn't end at checkout. Our team is always available to guide you through your pet parenting journey.</p>
+      </div>
+      <div class="value-card" style="animation-delay:0.3s">
+        <span class="value-icon">🚚</span>
+        <h3>Safe Delivery</h3>
+        <p>We use climate-controlled, stress-free transport methods to ensure your new companion arrives safe and happy.</p>
+      </div>
+    </div>
+  </section>
+
+ 
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Ready to Find Your Furry Friend? 🐾</h2>
+    <p>Over 50,000 happy families can't be wrong. Come visit us or shop online today!</p>
+    <a class="cta-btn" href="karupistore.html">🛒 Shop Now</a>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h3>🐾 Karupi Pet Store</h3>
+      <p>Your trusted source for happy, healthy pets. We connect loving families with their perfect companions.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <a href="index.html">🏠 Home</a>
+      <a href="about.html">🐾 About Us</a>
+      <a href="health-tips.html">🌿 Pet Health Tips</a>
+    </div>
+    <div class="footer-col">
+      <h3>Support</h3>
+      <a href="#">Track Your Order</a>
+      <a href="#">Return Policy</a>
+      <a href="#">FAQs</a>
+    </div>
+    <div class="footer-col">
+      <h3>Contact Us</h3>
+      <p>📍 Puducherry</p>
+      <p>📞 +91 9750784578</p>
+      <p>✉️ info@karupipets.com</p>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2025 <strong>Karupi Pet Store</strong> — Made with ❤️ for pet lovers across India.</div>
+</footer>
+
+</body>
+</html>

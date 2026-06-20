@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karupi Pet Store 🐾</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lavender: #9B7FC7;
+    --lavender-light: #C9B8E8;
+    --lavender-pale: #F0EBFF;
+    --lavender-deep: #6A4FA0;
+    --lavender-dark: #3D2569;
+    --lavender-mid: #B59FD8;
+    --white: #FFFFFF;
+    --soft-gray: #F8F5FF;
+    --text-dark: #2A1A4E;
+    --text-mid: #5A4080;
+    --accent: #FF7EB3;
+    --accent2: #FFB347;
+    --green: #6DBFA7;
+    --shadow: 0 8px 32px rgba(107,79,160,0.15);
+    --shadow-hover: 0 16px 48px rgba(107,79,160,0.28);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Nunito',sans-serif; background:var(--lavender-pale); color:var(--text-dark); overflow-x:hidden; }
+
+  /* MARQUEE */
+  .marquee-bar { background:linear-gradient(90deg,var(--lavender-dark),var(--lavender),var(--lavender-dark)); color:#fff; padding:10px 0; overflow:hidden; white-space:nowrap; font-weight:700; font-size:14px; letter-spacing:1px; }
+  .marquee-inner { display:inline-block; animation:marquee 30s linear infinite; }
+  .marquee-inner span { margin:0 40px; }
+  @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  /* HEADER */
+  header { background:linear-gradient(135deg,var(--lavender-dark) 0%,var(--lavender-deep) 60%,var(--lavender) 100%); padding:0 40px; position:sticky; top:0; z-index:1000; box-shadow:0 4px 24px rgba(61,37,105,0.35); }
+  .header-inner { max-width:1400px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:16px 0; }
+  .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .logo-icon { width:52px; height:52px; background:linear-gradient(135deg,var(--accent),var(--lavender-light)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:26px; box-shadow:0 4px 16px rgba(255,126,179,0.45); }
+  .logo-text { color:#fff; }
+  .logo-text h1 { font-family:'Playfair Display',serif; font-size:22px; line-height:1; }
+  .logo-text p { font-size:11px; letter-spacing:2px; opacity:0.8; text-transform:uppercase; margin-top:2px; }
+  .search-bar { flex:1; max-width:480px; margin:0 32px; display:flex; align-items:center; background:rgba(255,255,255,0.15); border-radius:50px; border:1.5px solid rgba(255,255,255,0.3); overflow:hidden; backdrop-filter:blur(8px); }
+  .search-bar input { flex:1; padding:12px 20px; background:none; border:none; color:#fff; font-family:'Nunito',sans-serif; font-size:14px; outline:none; }
+  .search-bar input::placeholder { color:rgba(255,255,255,0.65); }
+  .search-bar button { padding:12px 20px; background:var(--accent); border:none; color:#fff; cursor:pointer; font-size:16px; transition:background 0.2s; }
+  .search-bar button:hover { background:#ff5fa0; }
+  .header-actions { display:flex; align-items:center; gap:20px; }
+  .icon-btn { position:relative; background:rgba(255,255,255,0.15); border:none; border-radius:50%; width:46px; height:46px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:20px; color:#fff; transition:all 0.2s; backdrop-filter:blur(8px); }
+  .icon-btn:hover { background:rgba(255,255,255,0.3); transform:translateY(-2px); }
+  .badge { position:absolute; top:-4px; right:-4px; background:var(--accent); color:#fff; border-radius:50%; width:20px; height:20px; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+
+  /* HERO */
+  .hero { background:linear-gradient(135deg,var(--lavender-dark),var(--lavender-deep) 50%,var(--lavender-mid)); min-height:360px; display:flex; align-items:center; position:relative; overflow:hidden; padding:60px 40px; }
+  .hero::before { content:''; position:absolute; inset:0; background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/svg%3E"); }
+  .hero-content { max-width:1400px; margin:0 auto; z-index:1; }
+  .hero h2 { font-family:'Playfair Display',serif; font-size:clamp(34px,5vw,60px); color:#fff; line-height:1.1; }
+  .hero h2 span { color:var(--lavender-light); }
+  .hero p { color:rgba(255,255,255,0.8); font-size:18px; margin:16px 0 28px; max-width:500px; }
+  .hero-btn { display:inline-block; padding:14px 36px; background:linear-gradient(135deg,var(--accent),#ff5fa0); color:#fff; border-radius:50px; text-decoration:none; font-weight:800; font-size:16px; letter-spacing:0.5px; box-shadow:0 8px 24px rgba(255,126,179,0.45); transition:all 0.25s; border:none; cursor:pointer; }
+  .hero-btn:hover { transform:translateY(-3px); box-shadow:0 14px 36px rgba(255,126,179,0.55); }
+  .hero-emoji { font-size:80px; position:absolute; right:10%; top:50%; transform:translateY(-50%); animation:float 4s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(-50%) rotate(-5deg)} 50%{transform:translateY(-60%) rotate(5deg)} }
+
+  /* CATEGORY NAV */
+  .cats-nav { background:#fff; padding:16px 40px; box-shadow:0 2px 12px rgba(107,79,160,0.1); }
+  .cats-nav-inner { max-width:1400px; margin:0 auto; display:flex; gap:12px; overflow-x:auto; scrollbar-width:none; }
+  .cats-nav-inner::-webkit-scrollbar { display:none; }
+  .cat-pill { display:flex; align-items:center; gap:8px; padding:10px 22px; border-radius:50px; background:var(--lavender-pale); border:2px solid transparent; cursor:pointer; white-space:nowrap; font-weight:700; font-size:14px; color:var(--lavender-deep); transition:all 0.2s; }
+  .cat-pill:hover,.cat-pill.active { background:var(--lavender-deep); color:#fff; border-color:var(--lavender-deep); box-shadow:0 4px 16px rgba(107,79,160,0.3); transform:translateY(-2px); }
+
+  /* MAIN */
+  main { max-width:1400px; margin:0 auto; padding:40px; }
+  .section-title { font-family:'Playfair Display',serif; font-size:30px; color:var(--lavender-dark); margin-bottom:24px; display:flex; align-items:center; gap:12px; }
+  .section-title::after { content:''; flex:1; height:2px; background:linear-gradient(90deg,var(--lavender-light),transparent); }
+
+  /* GRID */
+  .pets-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:24px; }
+
+  /* CARD */
+  .pet-card { background:#fff; border-radius:20px; box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column; transition:all 0.3s; position:relative; animation:fadeUp 0.5s ease both; }
+  .pet-card:hover { box-shadow:var(--shadow-hover); transform:translateY(-6px); }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  .pet-card-img-wrap { position:relative; overflow:hidden; height:200px; }
+  .pet-card-img { width:100%; height:200px; object-fit:cover; display:block; transition:transform 0.4s; }
+  .pet-card:hover .pet-card-img { transform:scale(1.07); }
+  .pet-badge { position:absolute; top:12px; left:12px; background:var(--lavender-deep); color:#fff; border-radius:20px; padding:4px 12px; font-size:11px; font-weight:800; letter-spacing:1px; text-transform:uppercase; }
+  .fav-btn { position:absolute; top:10px; right:10px; background:rgba(255,255,255,0.9); border:none; border-radius:50%; width:38px; height:38px; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; transition:all 0.2s; box-shadow:0 2px 8px rgba(0,0,0,0.12); }
+  .fav-btn:hover { transform:scale(1.2); }
+  .pet-card-body { padding:16px; flex:1; display:flex; flex-direction:column; }
+  .pet-name { font-family:'Playfair Display',serif; font-size:18px; color:var(--lavender-dark); margin-bottom:4px; }
+  .pet-breed { font-size:13px; color:var(--text-mid); margin-bottom:6px; }
+  .pet-stars { color:var(--accent2); font-size:13px; margin-bottom:8px; }
+  .pet-detail { font-size:12px; color:var(--text-mid); line-height:1.6; margin-bottom:12px; }
+  .pet-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+  .pet-tag { background:var(--lavender-pale); color:var(--lavender-deep); border-radius:20px; padding:3px 10px; font-size:11px; font-weight:700; }
+  .pet-price { font-size:22px; font-weight:900; color:var(--lavender-deep); margin-bottom:12px; }
+  .pet-price small { font-size:13px; font-weight:600; color:var(--text-mid); }
+  .card-btns { display:flex; gap:8px; margin-top:auto; }
+  .btn-cart { flex:1; padding:10px; border-radius:12px; background:linear-gradient(135deg,var(--lavender-deep),var(--lavender)); color:#fff; border:none; cursor:pointer; font-family:'Nunito',sans-serif; font-weight:800; font-size:13px; transition:all 0.2s; }
+  .btn-cart:hover { opacity:0.88; transform:scale(1.03); }
+  .btn-buy { flex:1; padding:10px; border-radius:12px; background:linear-gradient(135deg,var(--accent),#ff5fa0); color:#fff; border:none; cursor:pointer; font-family:'Nunito',sans-serif; font-weight:800; font-size:13px; transition:all 0.2s; }
+  .btn-buy:hover { opacity:0.88; transform:scale(1.03); }
+
+  /* OVERLAY */
+  .overlay { position:fixed; inset:0; background:rgba(42,26,78,0.55); z-index:2000; display:none; align-items:flex-start; justify-content:flex-end; backdrop-filter:blur(4px); }
+  .overlay.open { display:flex; }
+  .side-panel { width:420px; height:100vh; background:#fff; box-shadow:-8px 0 40px rgba(61,37,105,0.2); display:flex; flex-direction:column; animation:slideIn 0.3s ease; }
+  @keyframes slideIn { from{transform:translateX(100%)} to{transform:translateX(0)} }
+  .panel-header { color:#fff; padding:24px; display:flex; align-items:center; justify-content:space-between; }
+  .panel-header h2 { font-family:'Playfair Display',serif; font-size:22px; }
+  .panel-header.cart-hdr { background:linear-gradient(135deg,var(--lavender-dark),var(--lavender-deep)); }
+  .panel-header.fav-hdr { background:linear-gradient(135deg,#c0538a,var(--accent)); }
+  .close-btn { background:rgba(255,255,255,0.2); border:none; border-radius:50%; width:38px; height:38px; cursor:pointer; color:#fff; font-size:20px; display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
+  .close-btn:hover { background:rgba(255,255,255,0.35); }
+  .panel-items { flex:1; overflow-y:auto; padding:20px; }
+  .empty-msg { text-align:center; padding:60px 20px; color:var(--text-mid); }
+  .empty-msg .e { font-size:60px; display:block; margin-bottom:16px; }
+  .cart-item { display:flex; gap:14px; padding:14px 0; border-bottom:1px solid var(--lavender-pale); align-items:center; }
+  .cart-item img { width:72px; height:72px; object-fit:cover; border-radius:12px; flex-shrink:0; }
+  .cart-item-info { flex:1; min-width:0; }
+  .ci-name { font-weight:700; color:var(--lavender-dark); font-size:14px; }
+  .ci-price { color:var(--lavender-deep); font-weight:800; font-size:16px; margin-top:2px; }
+  .qty-ctrl { display:flex; align-items:center; gap:8px; margin-top:6px; }
+  .qty-btn { width:28px; height:28px; border-radius:50%; border:2px solid var(--lavender-light); background:none; cursor:pointer; font-size:16px; font-weight:700; color:var(--lavender-deep); display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
+  .qty-btn:hover { background:var(--lavender-deep); color:#fff; border-color:var(--lavender-deep); }
+  .qty-val { font-weight:800; color:var(--lavender-dark); min-width:20px; text-align:center; }
+  .rm-btn { background:none; border:none; cursor:pointer; font-size:18px; color:var(--accent); transition:transform 0.15s; flex-shrink:0; }
+  .rm-btn:hover { transform:scale(1.3); }
+  .cart-footer { padding:20px; border-top:1px solid var(--lavender-pale); }
+  .cart-total { display:flex; justify-content:space-between; font-size:18px; font-weight:800; color:var(--lavender-dark); margin-bottom:16px; }
+  .cart-total span:last-child { color:var(--lavender-deep); }
+  .btn-checkout { width:100%; padding:16px; border-radius:16px; background:linear-gradient(135deg,var(--lavender-dark),var(--lavender)); color:#fff; border:none; cursor:pointer; font-family:'Nunito',sans-serif; font-weight:800; font-size:17px; letter-spacing:0.5px; transition:all 0.2s; box-shadow:0 8px 24px rgba(107,79,160,0.4); }
+  .btn-checkout:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(107,79,160,0.5); }
+
+  /* BUY MODAL */
+  .buy-overlay { position:fixed; inset:0; background:rgba(42,26,78,0.65); z-index:3000; display:none; align-items:center; justify-content:center; backdrop-filter:blur(6px); }
+  .buy-overlay.open { display:flex; }
+  .buy-modal { background:#fff; border-radius:24px; width:90%; max-width:480px; padding:36px; text-align:center; animation:popUp 0.3s ease; box-shadow:0 24px 80px rgba(61,37,105,0.35); }
+  @keyframes popUp { from{opacity:0;transform:scale(0.85)} to{opacity:1;transform:scale(1)} }
+  .buy-modal img { width:110px; height:110px; border-radius:20px; object-fit:cover; margin:0 auto 16px; display:block; }
+  .buy-modal h3 { font-family:'Playfair Display',serif; font-size:24px; color:var(--lavender-dark); margin-bottom:6px; }
+  .buy-price { font-size:28px; font-weight:900; color:var(--lavender-deep); margin-bottom:20px; }
+  .buy-form input,.buy-form select { width:100%; padding:12px 16px; border-radius:12px; border:2px solid var(--lavender-light); font-family:'Nunito',sans-serif; font-size:14px; margin-bottom:12px; outline:none; color:var(--text-dark); transition:border-color 0.2s; }
+  .buy-form input:focus,.buy-form select:focus { border-color:var(--lavender-deep); }
+  .buy-modal-btns { display:flex; gap:12px; margin-top:8px; }
+  .btn-cancel { flex:1; padding:13px; border-radius:14px; background:var(--lavender-pale); color:var(--lavender-deep); border:2px solid var(--lavender-light); cursor:pointer; font-family:'Nunito',sans-serif; font-weight:800; font-size:15px; transition:all 0.2s; }
+  .btn-cancel:hover { background:var(--lavender-light); }
+  .btn-confirm { flex:1; padding:13px; border-radius:14px; background:linear-gradient(135deg,var(--green),#4fa88a); color:#fff; border:none; cursor:pointer; font-family:'Nunito',sans-serif; font-weight:800; font-size:15px; transition:all 0.2s; box-shadow:0 6px 20px rgba(109,191,167,0.4); }
+  .btn-confirm:hover { transform:translateY(-2px); }
+
+  /* TOAST */
+  .toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(100px); background:var(--lavender-dark); color:#fff; padding:14px 28px; border-radius:50px; font-weight:700; font-size:15px; z-index:9999; transition:transform 0.35s ease; box-shadow:0 8px 32px rgba(0,0,0,0.2); white-space:nowrap; }
+  .toast.show { transform:translateX(-50%) translateY(0); }
+
+  footer { background:var(--lavender-dark); color:rgba(255,255,255,0.7); text-align:center; padding:28px 40px; margin-top:60px; font-size:14px; }
+  footer strong { color:var(--lavender-light); }
+</style>
+</head>
+<body>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-inner">
+    <span>🐾 Welcome to Karupi Pet Store!</span>
+    <span>🐶 Premium Dogs Starting ₹9,000</span>
+    <span>🐱 Adorable Cats & Kittens Available</span>
+    <span>🐟 Exotic Fish & Aquarium Collections</span>
+    <span>🐦 Beautiful Birds & Parrots</span>
+    <span>🐰 Cute Rabbits & Small Pets</span>
+    <span>🚚 Free Home Delivery inside India</span>
+    <span>💜 100% Healthy & Vaccinated Pets Guaranteed</span>
+    <span>📞 Call Us: +91 9750784578</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">🐾</div>
+      <div class="logo-text">
+        <h1>Karupi Pet Store</h1>
+        <p>Your Happy Pet Family</p>
+      </div>
+    </a>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search pets, breeds, categories…">
+      <button onclick="doSearch()">🔍</button>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="openFav()" title="Favourites">
+        ❤️<span class="badge" id="favBadge">0</span>
+      </button>
+      <button class="icon-btn" onclick="openCart()" title="Cart">
+        🛒<span class="badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <h2>Find Your Perfect<br><span>Furry Friend</span> 🐾</h2>
+    <p>Discover 100+ breeds of dogs, cats, birds, fish & more — healthy, vaccinated & ready to love!</p>
+    <button class="hero-btn" onclick="document.getElementById('shopSection').scrollIntoView({behavior:'smooth'})">Shop Now →</button>
+  </div>
+  <div class="hero-emoji">🐶</div>
+</div>
+
+
+<!-- CATEGORY NAV -->
+<div class="cats-nav">
+  <div class="cats-nav-inner">
+    <div class="cat-pill active" onclick="filterCat('all',this)">🏠 All Pets</div>
+    <div class="cat-pill" onclick="filterCat('dog',this)">🐶 Dogs</div>
+    <div class="cat-pill" onclick="filterCat('cat',this)">🐱 Cats</div>
+    <div class="cat-pill" onclick="filterCat('bird',this)">🐦 Birds</div>
+    <div class="cat-pill" onclick="filterCat('fish',this)">🐟 Fish</div>
+    <div class="cat-pill" onclick="filterCat('rabbit',this)">🐰 Rabbits</div>
+    <div class="cat-pill" onclick="filterCat('reptile',this)">🦎 Reptiles</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main id="shopSection">
+  <h2 class="section-title" id="mainTitle">🐾 Our Pets</h2>
+  <div class="pets-grid" id="petsGrid"></div>
+</main>
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-inner">
+    <span>🐾 Welcome to Karupi Pet Store!</span>
+    <span>🐶 Premium Dogs Starting ₹9,000</span>
+    <span>🐱 Adorable Cats & Kittens Available</span>
+    <span>🐟 Exotic Fish & Aquarium Collections</span>
+    <span>🐦 Beautiful Birds & Parrots</span>
+    <span>🐰 Cute Rabbits & Small Pets</span>
+    <span>🚚 Free Home Delivery inside India</span>
+    <span>💜 100% Healthy & Vaccinated Pets Guaranteed</span>
+    <span>📞 Call Us: +91 9750784578</span>
+  </div>
+</div>
+
+
+
+<footer>
+  <p>© 2025 <strong>Karupi Pet Store</strong> — All Rights Reserved. Made with 💜 in puducherry</p>
+  <p style="margin-top:6px;">📍puducherry &nbsp;|&nbsp; 📞 +91  9750784578&nbsp;|&nbsp; ✉️ info@karupipets.com</p>
+</footer>
+
+<!-- CART PANEL -->
+<div class="overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()">
+  <div class="side-panel">
+    <div class="panel-header cart-hdr">
+      <h2>🛒 My Cart</h2>
+      <button class="close-btn" onclick="closeCart()">✕</button>
+    </div>
+    <div class="panel-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>Total</span><span id="cartTotal">₹0</span></div>
+      <button class="btn-checkout" onclick="checkout()">✅ Place Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- FAV PANEL -->
+<div class="overlay" id="favOverlay" onclick="if(event.target===this)closeFav()">
+  <div class="side-panel">
+    <div class="panel-header fav-hdr">
+      <h2>❤️ Favourites</h2>
+      <button class="close-btn" onclick="closeFav()">✕</button>
+    </div>
+    <div class="panel-items" id="favItems"></div>
+  </div>
+</div>
+
+<!-- BUY MODAL -->
+<div class="buy-overlay" id="buyOverlay">
+  <div class="buy-modal">
+    <img id="buyImg" src="" alt="">
+    <h3 id="buyTitle"></h3>
+    <div class="buy-price" id="buyPrice"></div>
+    <div class="buy-form">
+      <input type="text" placeholder="Your Full Name" id="buyName">
+      <input type="text" placeholder="Phone Number" id="buyPhone">
+      <input type="text" placeholder="Email" id="buyEmail">
+      <input type="text" placeholder="Delivery Address" id="buyAddr">
+      <select id="buyPay">
+        <option value="">Select Payment Method</option>
+        <option>UPI / GPay / PhonePe</option>
+        <option>Credit / Debit Card</option>
+        <option>Net Banking</option>
+        <option>Cash on Delivery</option>
+      </select>
+    </div>
+    <div class="buy-modal-btns">
+      <button class="btn-cancel" onclick="closeBuy()">Cancel</button>
+      <button class="btn-confirm" onclick="confirmBuy()">🎉 Confirm Order</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const pets = [
+  // DOGS
+  {id:1,cat:'dog',name:'Golden Retriever',breed:'Purebred',price:18000,rating:5,tags:['Friendly','Family','Trained'],desc:'Gentle, loyal & great with kids. Fully vaccinated & dewormed. 3-month old puppy.',img:'https://images.unsplash.com/photo-1633722715463-d30f4f325e24?w=400&h=300&fit=crop',e:'🐶'},
+  {id:2,cat:'dog',name:'Labrador',breed:'Labrador Retriever',price:14000,rating:5,tags:['Playful','Smart','Active'],desc:'Energetic, loving companion. Excellent for first-time owners. 2 months old.',img:'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&h=300&fit=crop',e:'🐕'},
+  {id:3,cat:'dog',name:'German Shepherd',breed:'Purebred GSD',price:22000,rating:5,tags:['Guard','Loyal','Smart'],desc:'Majestic & protective. Excellent guard dog with perfect temperament.',img:'https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?w=400&h=300&fit=crop',e:'🐕‍🦺'},
+  {id:4,cat:'dog',name:'Pomeranian',breed:'Toy Pomeranian',price:9000,rating:4,tags:['Cute','Compact','Fluffy'],desc:'Adorable fluffy ball of joy! Perfect for apartments. Super friendly & playful.',img:'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=300&fit=crop',e:'🐩'},
+  {id:5,cat:'dog',name:'Beagle',breed:'Purebred Beagle',price:12000,rating:4,tags:['Curious','Gentle','Scent'],desc:'Famous for curiosity and gentle nature. Great family pet for all ages.',img:'https://images.unsplash.com/photo-1505628346881-b72b27e84530?w=400&h=300&fit=crop',e:'🐶'},
+  {id:6,cat:'dog',name:'Siberian Husky',breed:'Siberian Husky',price:28000,rating:5,tags:['Majestic','Blue Eyes','Wolf-like'],desc:'Stunning wolf-like appearance with mesmerizing blue eyes. Loves outdoor play.',img:'https://images.unsplash.com/photo-1617895153857-82fe79b0ab51?w=400&h=300&fit=crop',e:'🐺'},
+  // CATS
+  {id:7,cat:'cat',name:'Persian Cat',breed:'Purebred Persian',price:15000,rating:5,tags:['Fluffy','Calm','Royal'],desc:'Long silky coat, calm temperament. Perfect indoor companion. 2.5 months old.',img:'https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=400&h=300&fit=crop',e:'🐱'},
+  {id:8,cat:'cat',name:'Siamese',breed:'Siamese Cat',price:12000,rating:5,tags:['Talkative','Social','Elegant'],desc:'Highly intelligent & vocal. Loves human interaction and socializing every day.',img:'https://images.unsplash.com/photo-1561948955-570b270e7c36?w=400&h=300&fit=crop',e:'🐈'},
+  {id:9,cat:'cat',name:'Maine Coon',breed:'Maine Coon',price:20000,rating:5,tags:['Giant','Gentle','Dog-like'],desc:'One of the largest breeds with a dog-like personality. Extremely friendly indoors.',img:'https://images.unsplash.com/photo-1552933529-e359b2477252?w=400&h=300&fit=crop',e:'🐈'},
+  {id:10,cat:'cat',name:'Bengal Cat',breed:'Bengal',price:25000,rating:5,tags:['Wild Look','Active','Playful'],desc:'Gorgeous leopard-print coat. Wild appearance with a truly domestic heart.',img:'https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=400&h=300&fit=crop',e:'🐆'},
+  // BIRDS
+  {id:11,cat:'bird',name:'African Grey Parrot',breed:'Psittacus erithacus',price:35000,rating:5,tags:['Talking','Intelligent','Rare'],desc:'Exceptionally smart, can learn 1000+ words. Comes with cage & starter feed pack.',img:'https://images.unsplash.com/photo-1591198936750-16d8e15edb9e?w=400&h=300&fit=crop',e:'🦜'},
+  {id:12,cat:'bird',name:'Cockatiel',breed:'Nymphicus hollandicus',price:2500,rating:4,tags:['Musical','Friendly','Beginner'],desc:'Charming bird that whistles & chirps. The most beginner-friendly pet bird.',img:'https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=400&h=300&fit=crop',e:'🐦'},
+  {id:13,cat:'bird',name:'Lovebird Pair',breed:'Agapornis',price:4000,rating:5,tags:['Pair','Colorful','Social'],desc:'Beautiful bonded pair of lovebirds. Vibrant colors & adorable bonding behavior.',img:'https://images.unsplash.com/photo-1444464666168-49d633b86797?w=400&h=300&fit=crop',e:'💕'},
+  {id:14,cat:'bird',name:'Alexandrine Parakeet',breed:'Psittacula eupatria',price:8000,rating:4,tags:['Large','Talker','Green'],desc:"India's own magnificent parrot. Can mimic human speech with beautiful clarity.",img:'https://images.unsplash.com/photo-1500468756762-a401b6f17b46?w=400&h=300&fit=crop',e:'🦜'},
+  // FISH
+  {id:15,cat:'fish',name:'Arowana',breed:'Silver Arowana',price:12000,rating:5,tags:['Lucky','Rare','Large'],desc:'Symbol of good luck & wealth. Majestic dragon fish for large aquarium displays.',img:'https://images.unsplash.com/photo-1571752726703-5e7d1f6a986d?w=400&h=300&fit=crop',e:'🐟'},
+  {id:16,cat:'fish',name:'Koi Fish Pair',breed:'Nishikigoi',price:5000,rating:5,tags:['Colorful','Pond','Peaceful'],desc:'Beautiful Japanese koi pair. Perfect for garden ponds, brings prosperity.',img:'https://images.unsplash.com/photo-1496861083958-175bb1bd5702?w=400&h=300&fit=crop',e:'🐠'},
+  {id:17,cat:'fish',name:'Goldfish (6 Pack)',breed:'Fancy Goldfish',price:1200,rating:4,tags:['Beginner','Colorful','Easy'],desc:'Classic & colorful. Perfect for beginners. 6 healthy fish in assorted colors.',img:'https://images.unsplash.com/photo-1520302630591-fd1f1b17eb54?w=400&h=300&fit=crop',e:'🐡'},
+  {id:18,cat:'fish',name:'Betta Fighter Fish',breed:'Siamese Fighter',price:800,rating:4,tags:['Vibrant','Solo','Exotic'],desc:'Stunning crown-tail betta with vivid fins. Keep solo for the best display.',img:'https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=400&h=300&fit=crop',e:'🐠'},
+  // RABBITS
+  {id:19,cat:'rabbit',name:'Holland Lop',breed:'Holland Lop Rabbit',price:6000,rating:5,tags:['Floppy Ears','Soft','Cuddly'],desc:'Adorable floppy-eared bunny. Super soft and loves being gently held. 8 weeks old.',img:'https://images.unsplash.com/photo-1535241749838-299277b6305f?w=400&h=300&fit=crop',e:'🐰'},
+  {id:20,cat:'rabbit',name:'Angora Rabbit',breed:'Angora',price:8000,rating:4,tags:['Fluffy','Long Fur','Gentle'],desc:'Cloud-like ultra-fluffy coat. Extremely gentle and calm-natured bunny.',img:'https://images.unsplash.com/photo-1583301286816-f4f05e1e8b25?w=400&h=300&fit=crop',e:'🐇'},
+  {id:21,cat:'rabbit',name:'Dutch Rabbit',breed:'Dutch Breed',price:4500,rating:4,tags:['Classic','Friendly','Kids'],desc:'Classic two-tone markings. Very social, easy to handle. Great for children.',img:'https://images.unsplash.com/photo-1609824971544-0e7ed37e1e26?w=400&h=300&fit=crop',e:'🐰'},
+
+  // REPTILES
+  {id:22,cat:'reptile',name:'Bearded Dragon',breed:'Pogona vitticeps',price:18000,rating:4,tags:['Docile','Unique','Exotic'],desc:'Fascinating & docile lizard. Perfect for exotic pet lovers. Captive bred.',img:'https://images.unsplash.com/photo-1504450874802-0ba2bcd9b5ae?w=400&h=300&fit=crop',e:'🦎'},
+  {id:23,cat:'reptile',name:'Ball Python',breed:'Python regius',price:22000,rating:4,tags:['Non-venomous','Calm','Rare'],desc:'Gentle & handleable snake. Non-venomous, captive bred. Comes with terrarium setup.',img:'https://images.unsplash.com/photo-1531386151447-fd76ad50012f?w=400&h=300&fit=crop',e:'🐍'},
+  {id:24,cat:'reptile',name:'Star Tortoise',breed:'Indian Star Tortoise',price:15000,rating:5,tags:['80yr+ Life','Calm','Ancient'],desc:'Majestic star-patterned shell. Can live 80+ years. Legal captive-bred specimen.',img:'https://images.unsplash.com/photo-1437622368342-7a3d73a213c4?w=400&h=300&fit=crop',e:'🐢'},
+];
+
+const catLabels = {dog:'🐶 Dog',cat:'🐱 Cat',bird:'🐦 Bird',fish:'🐟 Fish',rabbit:'🐰 Rabbit',reptile:'🦎 Reptile'};
+let cart={}, favs=new Set(), currentBuy=null;
+
+function stars(n){ return '★'.repeat(n)+'☆'.repeat(5-n); }
+
+function renderGrid(list){
+  const g=document.getElementById('petsGrid');
+  if(!list.length){ g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-mid);font-size:18px;">😔 No pets found. Try a different search!</div>'; return; }
+  g.innerHTML=list.map((p,i)=>`
+    <div class="pet-card" style="animation-delay:${i*0.06}s">
+      <div class="pet-card-img-wrap">
+        <img class="pet-card-img" src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/400x300/c9b8e8/6a4fa0?text=${encodeURIComponent(p.e+' '+p.name)}'">
+        <div class="pet-badge">${catLabels[p.cat]}</div>
+        <button class="fav-btn" id="fb${p.id}" onclick="toggleFav(${p.id})">${favs.has(p.id)?'❤️':'🤍'}</button>
+      </div>
+      <div class="pet-card-body">
+        <div class="pet-name">${p.e} ${p.name}</div>
+        <div class="pet-breed">${p.breed}</div>
+        <div class="pet-stars">${stars(p.rating)} (${p.rating}.0)</div>
+        <div class="pet-detail">${p.desc}</div>
+        <div class="pet-tags">${p.tags.map(t=>`<span class="pet-tag">${t}</span>`).join('')}</div>
+        <div class="pet-price">₹${p.price.toLocaleString('en-IN')} <small>/ pet</small></div>
+        <div class="card-btns">
+          <button class="btn-cart" onclick="addToCart(${p.id})">🛒 Add to Cart</button>
+          <button class="btn-buy" onclick="openBuy(${p.id})">⚡ Buy Now</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+
+function filterCat(cat,el){
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  const list=cat==='all'?pets:pets.filter(p=>p.cat===cat);
+  document.getElementById('mainTitle').textContent=cat==='all'?'🐾 Our Pets':catLabels[cat]+'s';
+  renderGrid(list);
+}
+
+function doSearch(){
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  if(!q){renderGrid(pets);return;}
+  renderGrid(pets.filter(p=>p.name.toLowerCase().includes(q)||p.breed.toLowerCase().includes(q)||p.cat.includes(q)||p.tags.some(t=>t.toLowerCase().includes(q))));
+}
+document.getElementById('searchInput').addEventListener('keyup',e=>{if(e.key==='Enter')doSearch();});
+
+// CART
+function addToCart(id){ cart[id]=(cart[id]||0)+1; updateBadges(); showToast('🛒 Added to cart!'); }
+function updateBadges(){
+  document.getElementById('cartBadge').textContent=Object.values(cart).reduce((a,b)=>a+b,0);
+  document.getElementById('favBadge').textContent=favs.size;
+}
+function openCart(){ renderCart(); document.getElementById('cartOverlay').classList.add('open'); }
+function closeCart(){ document.getElementById('cartOverlay').classList.remove('open'); }
+function renderCart(){
+  const ids=Object.keys(cart), el=document.getElementById('cartItems');
+  if(!ids.length){ el.innerHTML='<div class="empty-msg"><span class="e">🛒</span><p>Your cart is empty!<br>Start shopping 🛍️</p></div>'; document.getElementById('cartTotal').textContent='₹0'; return; }
+  let tot=0;
+  el.innerHTML=ids.map(id=>{
+    const p=pets.find(x=>x.id==id),q=cart[id]; tot+=p.price*q;
+    return `<div class="cart-item">
+      <img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/72x72/c9b8e8/6a4fa0?text=${encodeURIComponent(p.e)}'">
+      <div class="cart-item-info">
+        <div class="ci-name">${p.e} ${p.name}</div>
+        <div class="ci-price">₹${(p.price*q).toLocaleString('en-IN')}</div>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="chQty(${id},-1)">−</button>
+          <span class="qty-val">${q}</span>
+          <button class="qty-btn" onclick="chQty(${id},1)">+</button>
+        </div>
+      </div>
+      <button class="rm-btn" onclick="rmCart(${id})">🗑️</button>
+    </div>`;
+  }).join('');
+  document.getElementById('cartTotal').textContent='₹'+tot.toLocaleString('en-IN');
+}
+function chQty(id,d){ cart[id]=(cart[id]||0)+d; if(cart[id]<=0)delete cart[id]; updateBadges(); renderCart(); }
+function rmCart(id){ delete cart[id]; updateBadges(); renderCart(); }
+function checkout(){
+  if(!Object.keys(cart).length){showToast('🛒 Cart is empty!');return;}
+  cart={}; updateBadges(); closeCart(); showToast('🎉 Order placed! Thank you for shopping at Karupi Pet Store!');
+}
+
+// FAVS
+function toggleFav(id){
+  favs.has(id)?favs.delete(id):favs.add(id);
+  const b=document.getElementById('fb'+id);
+  if(b){ b.textContent=favs.has(id)?'❤️':'🤍'; }
+  updateBadges();
+  showToast(favs.has(id)?'❤️ Added to favourites!':'💔 Removed from favourites');
+}
+function openFav(){ renderFav(); document.getElementById('favOverlay').classList.add('open'); }
+function closeFav(){ document.getElementById('favOverlay').classList.remove('open'); }
+function renderFav(){
+  const el=document.getElementById('favItems');
+  if(!favs.size){ el.innerHTML='<div class="empty-msg"><span class="e">❤️</span><p>No favourites yet!<br>Tap 🤍 on any pet to save.</p></div>'; return; }
+  el.innerHTML=[...favs].map(id=>{
+    const p=pets.find(x=>x.id==id);
+    return `<div class="cart-item">
+      <img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/72x72/c9b8e8/6a4fa0?text=${encodeURIComponent(p.e)}'">
+      <div class="cart-item-info">
+        <div class="ci-name">${p.e} ${p.name}</div>
+        <div class="ci-price">₹${p.price.toLocaleString('en-IN')}</div>
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <button class="btn-cart" style="font-size:12px;padding:6px 12px;border-radius:8px;" onclick="addToCart(${id});showToast('🛒 Added!')">🛒 Cart</button>
+          <button class="btn-buy" style="font-size:12px;padding:6px 12px;border-radius:8px;" onclick="closeFav();openBuy(${id})">⚡ Buy</button>
+        </div>
+      </div>
+      <button class="rm-btn" onclick="toggleFav(${id});renderFav()">🗑️</button>
+    </div>`;
+  }).join('');
+}
+
+// BUY
+function openBuy(id){
+  currentBuy=pets.find(p=>p.id==id);
+  document.getElementById('buyImg').src=currentBuy.img;
+  document.getElementById('buyTitle').textContent=currentBuy.e+' '+currentBuy.name;
+  document.getElementById('buyPrice').textContent='₹'+currentBuy.price.toLocaleString('en-IN');
+  document.getElementById('buyOverlay').classList.add('open');
+}
+function closeBuy(){ document.getElementById('buyOverlay').classList.remove('open'); }
+function confirmBuy(){
+  const n=document.getElementById('buyName').value.trim();
+  const ph=document.getElementById('buyPhone').value.trim();
+  const ad=document.getElementById('buyAddr').value.trim();
+  const py=document.getElementById('buyPay').value;
+  if(!n||!ph||!ad||!py){showToast('⚠️ Please fill all fields!');return;}
+  closeBuy();
+  showToast(`🎉 Order confirmed for ${currentBuy.name}! We'll contact you at ${ph}.`);
+  ['buyName','buyPhone','buyAddr'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('buyPay').value='';
+}
+
+// TOAST
+let tt;
+function showToast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+renderGrid(pets);
+</script>
+</body>
+</html>

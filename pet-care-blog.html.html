@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Care Blog — Karupi Pet Store 🐾</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800&family=Lora:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --lavender: #b57bee;
+  --lavender-light: #e8d5f7;
+  --lavender-mid: #c99ef0;
+  --lavender-dark: #7c3aad;
+  --lavender-pale: #f5eeff;
+  --lavender-deep: #5b1fa0;
+  --card-bg: #fdf8ff;
+  --text: #2d1b4e;
+  --text-light: #7a5fa0;
+  --accent: #ff6eb4;
+  --accent2: #ffb347;
+  --green: #4caf85;
+  --shadow: 0 8px 32px rgba(120,60,180,0.13);
+  --shadow-hover: 0 16px 48px rgba(120,60,180,0.22);
+  --radius: 20px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--lavender-pale);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── MARQUEE ── */
+.marquee-bar {
+  background: linear-gradient(90deg,var(--lavender-dark),var(--lavender),var(--lavender-dark));
+  color: white; padding: 10px 0;
+  overflow: hidden; font-weight: 700; font-size: 14px;
+}
+.marquee-track {
+  display: flex;
+  animation: marquee 32s linear infinite;
+  white-space: nowrap;
+}
+.marquee-track span { padding: 0 36px; }
+.marquee-track span::before { content: '🐾 '; }
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg,var(--lavender-deep) 0%,var(--lavender-dark) 55%,var(--lavender) 100%);
+  padding: 0 32px;
+  position: sticky; top: 0; z-index: 1000;
+  box-shadow: 0 4px 24px rgba(90,30,160,0.3);
+}
+.header-inner {
+  max-width: 1300px; margin: 0 auto;
+  display: flex; align-items: center; gap: 24px; height: 76px;
+}
+.logo {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none; flex-shrink: 0;
+}
+.logo-icon {
+  width: 50px; height: 50px;
+  background: linear-gradient(135deg,var(--accent),var(--lavender-light));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 4px 16px rgba(255,126,179,0.4);
+}
+.logo-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; font-weight: 900; color: white;
+  line-height: 1.1; text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.logo-sub {
+  font-size: 10px; font-weight: 700; color: var(--lavender-light);
+  letter-spacing: 2px; text-transform: uppercase;
+}
+.nav-links { display: flex; gap: 8px; margin-left: auto; flex-wrap: wrap; }
+.nav-link {
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.3);
+  color: white; border-radius: 14px; padding: 8px 18px;
+  text-decoration: none; font-weight: 700; font-size: 13px;
+  display: flex; align-items: center; gap: 6px;
+  transition: all 0.2s;
+}
+.nav-link:hover, .nav-link.active {
+  background: rgba(255,255,255,0.28); transform: translateY(-1px);
+}
+.nav-link.active {
+  background: var(--accent); border-color: var(--accent);
+}
+
+/* ── BLOG HERO ── */
+.blog-hero {
+  background: linear-gradient(135deg,var(--lavender-dark),var(--lavender-deep) 50%,var(--lavender-mid));
+  padding: 72px 32px 80px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.blog-hero::before {
+  content: '';
+  position: absolute; top: -100px; left: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle,rgba(181,123,238,0.2) 0%,transparent 70%);
+  border-radius: 50%;
+}
+.blog-hero::after {
+  content: '';
+  position: absolute; bottom: -80px; right: -60px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle,rgba(255,110,180,0.15) 0%,transparent 70%);
+  border-radius: 50%;
+}
+.blog-hero-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+.blog-hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3);
+  border-radius: 30px; padding: 7px 18px;
+  font-size: 13px; font-weight: 800; color: var(--lavender-light);
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;
+}
+.blog-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(38px,5vw,68px); font-weight: 900; color: white;
+  line-height: 1.1; text-shadow: 0 2px 16px rgba(0,0,0,0.2);
+  margin-bottom: 16px;
+}
+.blog-hero h1 span { color: var(--lavender-light); font-style: italic; }
+.blog-hero p {
+  font-size: 18px; color: rgba(255,255,255,0.85); font-weight: 600;
+  line-height: 1.6; margin-bottom: 32px;
+}
+.hero-stats {
+  display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+}
+.hero-stat {
+  background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25);
+  border-radius: 16px; padding: 14px 22px; text-align: center;
+}
+.hero-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 900; color: white;
+}
+.hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.7); font-weight: 700; margin-top: 2px; }
+
+/* ── CATEGORY FILTER ── */
+.filter-bar {
+  background: white; padding: 16px 32px;
+  border-bottom: 2px solid var(--lavender-light);
+  box-shadow: 0 2px 12px rgba(120,60,180,0.07);
+  position: sticky; top: 76px; z-index: 900;
+}
+.filter-inner {
+  max-width: 1300px; margin: 0 auto;
+  display: flex; gap: 10px; overflow-x: auto;
+  scrollbar-width: none; justify-content: center; flex-wrap: wrap;
+}
+.filter-inner::-webkit-scrollbar { display: none; }
+.filter-btn {
+  background: var(--lavender-pale); border: 2px solid var(--lavender-light);
+  border-radius: 30px; padding: 9px 20px; cursor: pointer;
+  font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 14px;
+  color: var(--lavender-dark); transition: all 0.2s; white-space: nowrap;
+  display: flex; align-items: center; gap: 6px;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: var(--lavender-dark); color: white;
+  border-color: var(--lavender-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(120,60,180,0.25);
+}
+
+/* ── MAIN LAYOUT ── */
+main {
+  max-width: 1300px; margin: 0 auto; padding: 48px 24px;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 40px;
+}
+@media(max-width: 1024px) { main { grid-template-columns: 1fr; } }
+
+/* ── FEATURED VIDEO SECTION ── */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-weight: 900; color: var(--lavender-deep);
+  margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+}
+.section-sub {
+  color: var(--text-light); font-weight: 600; font-size: 15px;
+  margin-bottom: 28px;
+}
+
+/* ── VIDEO GRID ── */
+.video-section { margin-bottom: 56px; }
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+.video-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1.5px solid var(--lavender-light);
+  transition: transform 0.25s, box-shadow 0.25s;
+  animation: fadeUp 0.5s ease both;
+}
+.video-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.video-thumb-wrap {
+  position: relative; width: 100%; padding-top: 56.25%;
+  overflow: hidden; background: #1a0a2e;
+}
+.video-thumb-wrap iframe {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  border: none;
+}
+.video-card-body { padding: 18px; }
+.video-card-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--lavender-pale); border: 1px solid var(--lavender-light);
+  border-radius: 20px; padding: 3px 12px;
+  font-size: 11px; font-weight: 800; color: var(--lavender-dark);
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;
+}
+.video-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700; color: var(--text);
+  margin-bottom: 6px; line-height: 1.3;
+}
+.video-card-desc {
+  font-size: 13px; color: #7a6590; line-height: 1.55;
+  margin-bottom: 12px;
+}
+.video-card-meta {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+}
+.video-meta-tag {
+  background: var(--lavender-pale); border-radius: 10px; padding: 3px 10px;
+  font-size: 12px; font-weight: 700; color: var(--lavender-dark);
+}
+
+/* ── BLOG ARTICLES ── */
+.blog-section { margin-bottom: 56px; }
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+.blog-card {
+  background: var(--card-bg);
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow); border: 1.5px solid var(--lavender-light);
+  transition: transform 0.25s, box-shadow 0.25s;
+  display: flex; flex-direction: column;
+  animation: fadeUp 0.5s ease both;
+}
+.blog-card:hover {
+  transform: translateY(-6px); box-shadow: var(--shadow-hover);
+}
+.blog-card-img {
+  height: 200px; overflow: hidden;
+  background: linear-gradient(135deg,var(--lavender-light),#f0e0ff);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 80px; position: relative;
+}
+.blog-card-img-bg {
+  width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s;
+}
+.blog-card:hover .blog-card-img-bg { transform: scale(1.08); }
+.blog-card-img .blog-emoji {
+  font-size: 72px;
+  filter: drop-shadow(0 4px 12px rgba(90,30,160,0.2));
+}
+.blog-cat-badge {
+  position: absolute; top: 12px; left: 12px;
+  border-radius: 20px; padding: 4px 12px;
+  font-size: 11px; font-weight: 800; text-transform: uppercase;
+  color: white; letter-spacing: 0.5px;
+}
+.badge-dog    { background: #7c3aad; }
+.badge-cat    { background: #ff6eb4; }
+.badge-bird   { background: #4caf85; }
+.badge-fish   { background: #2196f3; }
+.badge-rabbit { background: #ff9800; }
+.badge-all    { background: var(--lavender-dark); }
+.badge-health { background: var(--green); }
+.badge-tips   { background: var(--accent2); color: var(--text); }
+
+.blog-card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+.blog-card-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--lavender-pale); border: 1px solid var(--lavender-light);
+  border-radius: 20px; padding: 3px 12px;
+  font-size: 11px; font-weight: 800; color: var(--lavender-dark);
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;
+}
+.blog-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px; font-weight: 700; color: var(--text);
+  margin-bottom: 8px; line-height: 1.3;
+}
+.blog-card-excerpt {
+  font-size: 13px; color: #7a6590; line-height: 1.6;
+  margin-bottom: 14px; flex: 1;
+}
+.blog-card-footer {
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 10px;
+}
+.blog-author {
+  display: flex; align-items: center; gap: 8px;
+}
+.author-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: linear-gradient(135deg,var(--lavender),var(--accent));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.author-name { font-size: 12px; font-weight: 700; color: var(--text-light); }
+.author-date { font-size: 11px; color: #aaa; font-weight: 600; }
+.blog-read-btn {
+  background: linear-gradient(135deg,var(--lavender-dark),var(--lavender));
+  color: white; border: none; border-radius: 12px;
+  padding: 8px 16px; cursor: pointer;
+  font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px;
+  transition: all 0.2s; white-space: nowrap;
+}
+.blog-read-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(120,60,180,0.3);
+}
+
+/* ── SIDEBAR ── */
+.sidebar { display: flex; flex-direction: column; gap: 28px; }
+
+.sidebar-card {
+  background: var(--card-bg); border-radius: var(--radius);
+  border: 1.5px solid var(--lavender-light); box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.sidebar-card-header {
+  background: linear-gradient(135deg,var(--lavender-deep),var(--lavender-dark));
+  color: white; padding: 16px 20px;
+  font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700;
+  display: flex; align-items: center; gap: 8px;
+}
+.sidebar-card-body { padding: 16px 20px; }
+
+/* Quick Tips */
+.tip-item {
+  display: flex; gap: 12px; padding: 12px 0;
+  border-bottom: 1px solid var(--lavender-light);
+  align-items: flex-start;
+}
+.tip-item:last-child { border-bottom: none; }
+.tip-icon {
+  width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
+  background: var(--lavender-pale); display: flex; align-items: center;
+  justify-content: center; font-size: 20px;
+}
+.tip-title { font-weight: 700; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+.tip-desc  { font-size: 12px; color: var(--text-light); line-height: 1.5; }
+
+/* Pet Health Checklist */
+.checklist-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid var(--lavender-light);
+  font-size: 13px; font-weight: 700; color: var(--text);
+  cursor: pointer;
+}
+.checklist-item:last-child { border-bottom: none; }
+.check-box {
+  width: 22px; height: 22px; border-radius: 6px;
+  border: 2px solid var(--lavender-light);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.2s; font-size: 13px;
+  background: white;
+}
+.checklist-item.checked .check-box {
+  background: var(--green); border-color: var(--green); color: white;
+}
+
+/* Newsletter */
+.newsletter-form { display: flex; flex-direction: column; gap: 10px; }
+.newsletter-input {
+  width: 100%; border: 1.5px solid var(--lavender-light);
+  border-radius: 12px; padding: 11px 16px;
+  font-family: 'Nunito', sans-serif; font-size: 14px;
+  outline: none; font-weight: 600; color: var(--text);
+  transition: border-color 0.2s;
+}
+.newsletter-input:focus { border-color: var(--lavender-dark); }
+.newsletter-btn {
+  width: 100%;
+  background: linear-gradient(135deg,var(--accent),#ff4d9e);
+  color: white; border: none; border-radius: 12px;
+  padding: 12px; cursor: pointer;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 15px;
+  transition: all 0.2s;
+}
+.newsletter-btn:hover {
+  transform: translateY(-1px); box-shadow: 0 6px 18px rgba(255,110,180,0.4);
+}
+
+/* Popular Breeds */
+.breed-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid var(--lavender-light);
+  text-decoration: none;
+}
+.breed-item:last-child { border-bottom: none; }
+.breed-num {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--lavender-pale); color: var(--lavender-dark);
+  font-weight: 800; font-size: 13px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.breed-name { font-weight: 700; font-size: 14px; color: var(--text); flex: 1; }
+.breed-arrow { color: var(--lavender-dark); font-size: 16px; }
+
+/* ── FULL ARTICLE MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(45,27,78,0.58);
+  z-index: 2000;
+  display: none; align-items: center; justify-content: center;
+  backdrop-filter: blur(5px); padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.article-modal {
+  background: white; border-radius: 24px;
+  width: 100%; max-width: 720px; max-height: 90vh;
+  overflow: hidden; display: flex; flex-direction: column;
+  box-shadow: 0 24px 80px rgba(90,30,160,0.32);
+  animation: slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes slideUp {
+  from { transform: translateY(60px) scale(0.95); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+.article-modal-header {
+  padding: 24px 28px;
+  background: linear-gradient(135deg,var(--lavender-deep),var(--lavender-dark));
+  color: white; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+}
+.article-modal-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700; line-height: 1.3;
+}
+.modal-close {
+  background: rgba(255,255,255,0.2); border: none; color: white;
+  width: 36px; height: 36px; border-radius: 50%; font-size: 18px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s; flex-shrink: 0;
+}
+.modal-close:hover { background: rgba(255,255,255,0.38); }
+.article-modal-body {
+  padding: 28px; overflow-y: auto; flex: 1;
+  font-size: 15px; line-height: 1.75; color: var(--text);
+}
+.article-modal-body h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; color: var(--lavender-deep);
+  margin: 24px 0 10px; font-weight: 700;
+}
+.article-modal-body p { margin-bottom: 14px; }
+.article-modal-body ul {
+  padding-left: 20px; margin-bottom: 14px;
+}
+.article-modal-body ul li { margin-bottom: 6px; font-weight: 600; }
+.article-tip-box {
+  background: var(--lavender-pale); border-left: 4px solid var(--lavender-dark);
+  border-radius: 0 12px 12px 0; padding: 14px 18px;
+  margin: 16px 0; font-weight: 700; font-size: 14px; color: var(--lavender-deep);
+}
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 28px; right: 28px;
+  background: linear-gradient(135deg,var(--lavender-dark),var(--lavender));
+  color: white; padding: 13px 22px;
+  border-radius: 16px; font-weight: 700; font-size: 15px;
+  z-index: 9999; box-shadow: 0 8px 32px rgba(120,60,180,0.3);
+  transform: translateY(100px); opacity: 0;
+  transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  pointer-events: none;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ── FOOTER ── */
+footer {
+  background: linear-gradient(135deg,var(--lavender-deep),var(--lavender-dark));
+  color: white; padding: 48px 32px 28px; margin-top: 40px;
+}
+.footer-inner {
+  max-width: 1300px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap: 36px; margin-bottom: 36px;
+}
+.footer-col h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; margin-bottom: 14px; color: var(--lavender-light);
+}
+.footer-col p, .footer-col a {
+  font-size: 14px; color: rgba(255,255,255,0.72);
+  text-decoration: none; display: block;
+  margin-bottom: 8px; font-weight: 600; transition: color 0.2s;
+}
+.footer-col a:hover { color: white; }
+.footer-bottom {
+  text-align: center; padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-size: 14px; color: rgba(255,255,255,0.6); font-weight: 600;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width: 768px) {
+  .header-inner { gap: 12px; }
+  .logo-name { font-size: 18px; }
+  .nav-links { gap: 6px; }
+  .nav-link span:not(:first-child) { display: none; }
+  .blog-hero { padding: 48px 20px 56px; }
+  main { padding: 28px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- MARQUEE TOP -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Welcome to Karupi Pet Store!</span>
+    <span>Free Delivery on Orders Over ₹2000</span>
+    <span>100% Health Guaranteed Pets</span>
+    <span>24/7 Vet Support Available</span>
+    <span>Premium Dogs Starting ₹18,000</span>
+    <span>Adorable Cats &amp; Kittens Available</span>
+    <span>Exotic Fish &amp; Aquarium Collections</span>
+    <span>Beautiful Birds &amp; Parrots</span>
+    <span>Cute Rabbits &amp; Hamsters</span>
+    <span>Call Us: +91 9750784578</span>
+    <span>Welcome to Karupi Pet Store!</span>
+    <span>Free Delivery on Orders Over ₹2000</span>
+    <span>100% Health Guaranteed Pets</span>
+    <span>24/7 Vet Support Available</span>
+    <span>Premium Dogs Starting ₹18,000</span>
+    <span>Adorable Cats &amp; Kittens Available</span>
+    <span>Exotic Fish &amp; Aquarium Collections</span>
+    <span>Beautiful Birds &amp; Parrots</span>
+    <span>Cute Rabbits &amp; Hamsters</span>
+    <span>Call Us: +91 9750784578</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="index.html">
+      <div class="logo-icon">🐾</div>
+      <div>
+        <div class="logo-name">Karupi Pet Store</div>
+        <div class="logo-sub">Your Happy Pet Family</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="karupistore.html">🏠 <span>Home</span></a>
+      <a class="nav-link active" href="pet-care-blog.html">📝 <span>Blog</span></a>
+      <a class="nav-link active" href="health-tips.html">🏥 <span>Health Tips</span></a>
+      <a class="nav-link active" href="about.html">ℹ️ <span>About</span></a>
+      <a class="nav-link active" href="faqs.html">💬 <span>FAQs</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn active" onclick="filterPosts('all',this)">🌟 All</button>
+    <button class="filter-btn" onclick="filterPosts('dog',this)">🐕 Dogs</button>
+    <button class="filter-btn" onclick="filterPosts('cat',this)">🐱 Cats</button>
+    <button class="filter-btn" onclick="filterPosts('bird',this)">🦜 Birds</button>
+    <button class="filter-btn" onclick="filterPosts('fish',this)">🐠 Fish</button>
+    <button class="filter-btn" onclick="filterPosts('rabbit',this)">🐰 Rabbits</button>
+    <button class="filter-btn" onclick="filterPosts('health',this)">🏥 Health</button>
+    <button class="filter-btn" onclick="filterPosts('tips',this)">💡 Tips</button>
+    <button class="filter-btn" onclick="filterPosts('video',this)">🎬 Videos</button>
+  </div>
+</div>
+
+<!-- BLOG HERO -->
+<section class="blog-hero">
+  <div class="blog-hero-inner">
+    <div class="blog-hero-tag">📰 Karupi Pet Care Blog</div>
+    <h1>Love, Care &<br><span>Happy Pets</span></h1>
+    <p>Expert advice, care guides & fun videos to help you raise the happiest, healthiest pets.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">50+</div>
+        <div class="hero-stat-label">Articles</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">6</div>
+        <div class="hero-stat-label">Expert Videos</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">10K+</div>
+        <div class="hero-stat-label">Readers</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">8</div>
+        <div class="hero-stat-label">Pet Species</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main>
+  <div class="content-area">
+
+    <!-- VIDEO SECTION -->
+    <div class="video-section" id="section-video">
+      <div class="section-title">🎬 Pet Care Videos</div>
+      <div class="section-sub">Watch expert guides and adorable pet care tutorials</div>
+      <div class="video-grid" id="video-grid">
+
+        <div class="video-card" data-cat="dog" style="animation-delay:0s">
+          <div class="video-thumb-wrap">
+            <iframe src="https://www.youtube.com/embed/zPOAaDUzVDY" 
+              title="Dog Care Guide" allowfullscreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
+          </div>
+          <div class="video-card-body">
+            <div class="video-card-tag">🐕 Dog Care</div>
+            <div class="video-card-title">Complete Dog Care Guide for New Owners</div>
+            <div class="video-card-desc">Everything you need to know about feeding, grooming, training and keeping your dog healthy and happy at home.</div>
+            <div class="video-card-meta">
+              <span class="video-meta-tag">🕐 Beginner Friendly</span>
+              <span class="video-meta-tag">⭐ Expert Tips</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-card" data-cat="cat" style="animation-delay:0.06s">
+          <div class="video-thumb-wrap">
+            <iframe src="https://www.youtube.com/embed/r5IYdQuH-To"
+              title="Cat Care Guide" allowfullscreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
+          </div>
+          <div class="video-card-body">
+            <div class="video-card-tag">🐱 Cat Care</div>
+            <div class="video-card-title">How to Care for Your Cat — Complete Guide</div>
+            <div class="video-card-desc">Discover the best practices for feeding, grooming, litter training and bonding with your feline companion.</div>
+            <div class="video-card-meta">
+              <span class="video-meta-tag">🐾 Must Watch</span>
+              <span class="video-meta-tag">🏠 Indoor Cats</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-card" data-cat="bird" style="animation-delay:0.12s">
+          <div class="video-thumb-wrap">
+            <iframe src="https://www.youtube.com/embed/s7hlcoA4Xpg"
+              title="Bird Care Guide" allowfullscreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
+          </div>
+          <div class="video-card-body">
+            <div class="video-card-tag">🦜 Bird Care</div>
+            <div class="video-card-title">Pet Bird Care Tips — Parrots, Budgies & More</div>
+            <div class="video-card-desc">Learn how to set up the perfect cage, feed your birds properly and keep them mentally stimulated and chirpy!</div>
+            <div class="video-card-meta">
+              <span class="video-meta-tag">🎵 Bird Talk</span>
+              <span class="video-meta-tag">🌿 Nutrition</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-card" data-cat="fish" style="animation-delay:0.18s">
+          <div class="video-thumb-wrap">
+            <iframe src="https://www.youtube.com/embed/At9-pvifL5s"
+              title="Fish Care Guide" allowfullscreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
+          </div>
+          <div class="video-card-body">
+            <div class="video-card-tag">🐠 Fish Care</div>
+            <div class="video-card-title">Aquarium Setup & Fish Care for Beginners</div>
+            <div class="video-card-desc">Step-by-step guide to setting up a healthy aquarium, choosing the right fish, water cycling and maintenance.</div>
+            <div class="video-card-meta">
+              <span class="video-meta-tag">💧 Aquarium</span>
+              <span class="video-meta-tag">🔰 Beginner</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-card" data-cat="rabbit" style="animation-delay:0.24s">
+          <div class="video-thumb-wrap">
+            <iframe src="https://www.youtube.com/embed/n3OwgFrZ4zY"
+              title="Rabbit Care Guide" allowfullscreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
+          </div>
+          <div class="video-card-body">
+            <div class="video-card-tag">🐰 Rabbit Care</div>
+            <div class="video-card-title">Rabbit Care Guide — Diet, Housing & Health</div>
+            <div class="video-card-desc">Everything about rabbit care: diet, housing, exercise, bonding and common health issues to watch out for.</div>
+            <div class="video-card-meta">
+              <span class="video-meta-tag">🌾 Diet Tips</span>
+              <span class="video-meta-tag">🏡 Housing</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-card" data-cat="health" style="animation-delay:0.30s">
+          <div class="video-thumb-wrap">
+            <iframe src="https://www.youtube.com/embed/dpvhjIjNZdg"
+              title="Pet Health Tips" allowfullscreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
+          </div>
+          <div class="video-card-body">
+            <div class="video-card-tag">🏥 Pet Health</div>
+            <div class="video-card-title">Essential Pet Health Tips — Vaccination & Vet Care</div>
+            <div class="video-card-desc">Vet-recommended advice on vaccinations, deworming, signs of illness, and when to visit the vet for your pets.</div>
+            <div class="video-card-meta">
+              <span class="video-meta-tag">💉 Vaccines</span>
+              <span class="video-meta-tag">🩺 Vet Advice</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BLOG ARTICLES -->
+    <div class="blog-section" id="section-articles">
+      <div class="section-title">📝 Pet Care Articles</div>
+      <div class="section-sub">In-depth guides written by our pet care experts</div>
+      <div class="blog-grid" id="blog-grid"></div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- Quick Tips -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">💡 Quick Pet Tips</div>
+      <div class="sidebar-card-body">
+        <div class="tip-item">
+          <div class="tip-icon">💧</div>
+          <div>
+            <div class="tip-title">Fresh Water Daily</div>
+            <div class="tip-desc">Always provide fresh, clean water for your pets every single day without fail.</div>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-icon">🦷</div>
+          <div>
+            <div class="tip-title">Dental Hygiene</div>
+            <div class="tip-desc">Brush your pet's teeth 2–3 times a week to prevent dental disease.</div>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-icon">🏃</div>
+          <div>
+            <div class="tip-title">Daily Exercise</div>
+            <div class="tip-desc">Dogs need at least 30 min of physical activity daily for a healthy life.</div>
+          </div>
+        </div>
+        <div class="tip-item">
+          <div class="tip-icon">🩺</div>
+          <div>
+            <div class="tip-title">Annual Vet Visits</div>
+            <div class="tip-desc">Schedule yearly check-ups even if your pet seems perfectly healthy.</div>
+          </div>
+        </div>
+        <div class="tip-item" style="border:none">
+          <div class="tip-icon">🌡️</div>
+          <div>
+            <div class="tip-title">Watch for Symptoms</div>
+            <div class="tip-desc">Loss of appetite, lethargy or unusual behaviour needs immediate vet attention.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Health Checklist -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">✅ Monthly Health Checklist</div>
+      <div class="sidebar-card-body">
+        <div class="checklist-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <span>Vaccination updated</span>
+        </div>
+        <div class="checklist-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <span>Deworming done</span>
+        </div>
+        <div class="checklist-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <span>Flea & tick treatment</span>
+        </div>
+        <div class="checklist-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <span>Dental check</span>
+        </div>
+        <div class="checklist-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <span>Weight monitored</span>
+        </div>
+        <div class="checklist-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <span>Grooming session</span>
+        </div>
+        <div class="checklist-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <span>Nail trimming</span>
+        </div>
+        <div class="checklist-item" onclick="toggleCheck(this)" style="border:none">
+          <div class="check-box">✓</div>
+          <span>Ear cleaning</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">📧 Pet Care Newsletter</div>
+      <div class="sidebar-card-body">
+        <p style="font-size:13px;color:var(--text-light);font-weight:600;margin-bottom:14px;line-height:1.6;">Get weekly pet care tips, health alerts and exclusive offers from Karupi Pet Store!</p>
+        <div class="newsletter-form">
+          <input class="newsletter-input" type="text" placeholder="Your Name" id="nl-name">
+          <input class="newsletter-input" type="email" placeholder="Email Address" id="nl-email">
+          <button class="newsletter-btn" onclick="subscribeNewsletter()">🐾 Subscribe Free</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popular Breeds -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">🔥 Popular Breeds</div>
+      <div class="sidebar-card-body">
+        <a href="index.html" class="breed-item">
+          <div class="breed-num">1</div>
+          <div class="breed-name">🐕 Golden Retriever</div>
+          <div class="breed-arrow">→</div>
+        </a>
+        <a href="index.html" class="breed-item">
+          <div class="breed-num">2</div>
+          <div class="breed-name">🐱 Persian Cat</div>
+          <div class="breed-arrow">→</div>
+        </a>
+        <a href="index.html" class="breed-item">
+          <div class="breed-num">3</div>
+          <div class="breed-name">🦜 African Grey</div>
+          <div class="breed-arrow">→</div>
+        </a>
+        <a href="index.html" class="breed-item">
+          <div class="breed-num">4</div>
+          <div class="breed-name">🐠 Betta Fish</div>
+          <div class="breed-arrow">→</div>
+        </a>
+        <a href="index.html" class="breed-item">
+          <div class="breed-num">5</div>
+          <div class="breed-name">🐕 Siberian Husky</div>
+          <div class="breed-arrow">→</div>
+        </a>
+        <a href="index.html" class="breed-item" style="border:none">
+          <div class="breed-num">6</div>
+          <div class="breed-name">🐱 Maine Coon</div>
+          <div class="breed-arrow">→</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Contact CTA -->
+    <div class="sidebar-card" style="background:linear-gradient(135deg,var(--lavender-deep),var(--lavender-dark));border:none;">
+      <div style="padding:24px;text-align:center;">
+        <div style="font-size:48px;margin-bottom:12px;">🏥</div>
+        <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:white;margin-bottom:8px;">24/7 Vet Support</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.8);font-weight:600;line-height:1.6;margin-bottom:16px;">Have a pet health emergency? Our certified vets are available round the clock.</div>
+        <a href="tel:+919750784578" style="display:block;background:white;color:var(--lavender-deep);border-radius:14px;padding:12px;font-weight:800;font-size:15px;text-decoration:none;transition:all 0.2s;">
+          📞 +91 9750784578
+        </a>
+      </div>
+    </div>
+
+  </aside>
+</main>
+
+<!-- MARQUEE BOTTOM -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Welcome to Karupi Pet Store!</span>
+    <span>Free Delivery on Orders Over ₹2000</span>
+    <span>100% Health Guaranteed Pets</span>
+    <span>24/7 Vet Support Available</span>
+    <span>Expert Pet Care Blog Updated Weekly</span>
+    <span>Beautiful Birds &amp; Parrots</span>
+    <span>Cute Rabbits &amp; Hamsters</span>
+    <span>Call Us: +91 9750784578</span>
+    <span>Welcome to Karupi Pet Store!</span>
+    <span>Free Delivery on Orders Over ₹2000</span>
+    <span>100% Health Guaranteed Pets</span>
+    <span>24/7 Vet Support Available</span>
+    <span>Expert Pet Care Blog Updated Weekly</span>
+    <span>Beautiful Birds &amp; Parrots</span>
+    <span>Cute Rabbits &amp; Hamsters</span>
+    <span>Call Us: +91 9750784578</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h3>🐾 Karupi Pet Store</h3>
+      <p>Your trusted source for happy, healthy pets. We connect loving families with their perfect companions.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <a href="index.html">🏠 Shop Pets</a>
+      <a href="pet-care-blog.html">📝 Pet Care Blog</a>
+      <a href="health-tips.html">🏥 Health Tips</a>
+      <a href="about.html">ℹ️ About Us</a>
+    </div>
+    <div class="footer-col">
+      <h3>Support</h3>
+      <a href="faqs.html">💬 FAQs</a>
+      <a href="track-order.html">📦 Track Your Order</a>
+      <a href="tel:+919750784578">📞 Call Us</a>
+    </div>
+    <div class="footer-col">
+      <h3>Contact Us</h3>
+      <p>📍 Puducherry</p>
+      <p>📞 +91 9750784578</p>
+      <p>✉️ info@karupipets.com</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2025 <strong>Karupi Pet Store</strong> — Made with ❤️ for pet lovers across India.
+  </div>
+</footer>
+
+<!-- ARTICLE MODAL -->
+<div class="modal-overlay" id="articleModal">
+  <div class="article-modal">
+    <div class="article-modal-header">
+      <h2 id="articleTitle">Article Title</h2>
+      <button class="modal-close" onclick="closeArticle()">✕</button>
+    </div>
+    <div class="article-modal-body" id="articleBody"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── BLOG POST DATA ──
+const blogPosts = [
+  {
+    id: 1, cat: 'dog', emoji: '🐕',
+    badgeClass: 'badge-dog', badgeLabel: '🐕 Dogs',
+    tag: 'Dog Care',
+    title: 'How to Care for Your Golden Retriever Puppy',
+    excerpt: 'Golden Retrievers are joyful, intelligent dogs. Learn everything about feeding schedules, vaccination timelines, socialisation and grooming for your new golden pup.',
+    author: '🧑‍⚕️', authorName: 'Dr. Priya Nair', date: 'Jan 15, 2025', readTime: '5 min read',
+    content: `
+      <p>Golden Retrievers are one of the most beloved dog breeds in the world — and for good reason! They are friendly, intelligent, gentle and absolutely devoted to their families.</p>
+      <h3>🍽️ Feeding Your Golden Puppy</h3>
+      <p>Puppies aged 8–12 weeks need to be fed 4 times a day. As they grow, reduce to 3 meals a day from 3–6 months, then 2 meals daily after 6 months. Choose a high-quality kibble designed for large-breed puppies.</p>
+      <div class="article-tip-box">💡 Pro Tip: Avoid overfeeding — Golden Retrievers are prone to obesity. Measure portions carefully and limit treats to 10% of daily calories.</div>
+      <h3>💉 Vaccination Schedule</h3>
+      <ul>
+        <li>6–8 weeks: Distemper, Parvovirus</li>
+        <li>10–12 weeks: DHPP combo vaccine</li>
+        <li>16–18 weeks: Rabies vaccine</li>
+        <li>Annual boosters for continued protection</li>
+      </ul>
+      <h3>✂️ Grooming Tips</h3>
+      <p>Golden Retrievers have a beautiful double coat that requires brushing 3–4 times per week to prevent matting. Bathe once every 6–8 weeks and trim nails monthly. Clean ears weekly to avoid infections.</p>
+      <h3>🏃 Exercise Needs</h3>
+      <p>Adult Goldens need 1–2 hours of exercise daily. Puppies should follow the 5-minute rule per month of age, twice a day. Swimming is excellent exercise and Goldens naturally love water!</p>
+    `
+  },
+  {
+    id: 2, cat: 'cat', emoji: '🐱',
+    badgeClass: 'badge-cat', badgeLabel: '🐱 Cats',
+    tag: 'Cat Care',
+    title: 'Persian Cat Care: Grooming, Diet & Health',
+    excerpt: 'Persian cats are gentle, elegant beauties that require dedicated grooming. Discover the essential care routine to keep your Persian cat healthy, happy and looking gorgeous.',
+    author: '👩‍⚕️', authorName: 'Dr. Meera Iyer', date: 'Jan 20, 2025', readTime: '6 min read',
+    content: `
+      <p>Persian cats are known for their luxurious long coats, flat faces and calm temperament. They make wonderful indoor companions but do require consistent care.</p>
+      <h3>🪮 Daily Grooming Is Essential</h3>
+      <p>Persian cats must be brushed daily to prevent tangles and matting. Use a wide-toothed comb followed by a slicker brush. Pay special attention to armpits, belly and neck areas where mats form most easily.</p>
+      <div class="article-tip-box">💡 Pro Tip: Start grooming routines when your Persian is a kitten so they learn to enjoy and accept it as part of daily life.</div>
+      <h3>🍽️ Diet for Persians</h3>
+      <p>High-protein, grain-free wet food is ideal for Persians. Their flat faces (brachycephalic) can make eating dry kibble difficult — choose flat or oval-shaped kibble. Always ensure fresh water is available.</p>
+      <h3>👁️ Eye Care</h3>
+      <p>Persian cats are prone to eye discharge due to their facial structure. Wipe eyes gently with a damp cotton ball each morning. Watch for excessive tearing, redness or cloudiness.</p>
+      <h3>🏥 Common Health Issues</h3>
+      <ul>
+        <li>Polycystic Kidney Disease (PKD) — test breeding cats</li>
+        <li>Respiratory issues due to flat face</li>
+        <li>Dental overcrowding</li>
+        <li>Skin fold dermatitis around the nose</li>
+      </ul>
+    `
+  },
+  {
+    id: 3, cat: 'bird', emoji: '🦜',
+    badgeClass: 'badge-bird', badgeLabel: '🦜 Birds',
+    tag: 'Bird Care',
+    title: 'African Grey Parrot: The Genius Bird\'s Care Guide',
+    excerpt: 'African Grey Parrots are among the most intelligent animals on Earth. Learn how to keep this remarkable bird mentally stimulated, socially enriched and physically healthy.',
+    author: '🧑‍🔬', authorName: 'Rajan Kumar', date: 'Feb 1, 2025', readTime: '7 min read',
+    content: `
+      <p>The African Grey Parrot is often called the "Einstein of the bird world." They can develop a vocabulary of 1000+ words and show remarkable problem-solving ability.</p>
+      <h3>🧠 Mental Stimulation is Critical</h3>
+      <p>African Greys are highly intelligent and can develop psychological issues from boredom. Provide puzzles, foraging toys, and regular out-of-cage time. Rotate toys weekly to keep things interesting.</p>
+      <div class="article-tip-box">💡 Pro Tip: Talk to your African Grey throughout the day. They learn contextual speech and associate words with actions — the more interaction, the more they thrive.</div>
+      <h3>🥗 Diet & Nutrition</h3>
+      <p>A balanced diet includes high-quality pellets (60%), fresh vegetables (30%) and fruits/seeds (10%). African Greys require additional calcium — leafy greens, almonds and cuttlebone are excellent sources.</p>
+      <h3>🏠 Cage Requirements</h3>
+      <ul>
+        <li>Minimum cage size: 36" × 24" × 48"</li>
+        <li>Multiple perches at different heights</li>
+        <li>Stainless steel cage — zinc-free</li>
+        <li>Place cage in a social area, never isolated</li>
+      </ul>
+      <h3>❤️ Social Bonding</h3>
+      <p>African Greys bond deeply with their primary caregiver. Introduce them to multiple family members from the start to prevent single-person bonding issues. Handle gently and consistently every day.</p>
+    `
+  },
+  {
+    id: 4, cat: 'fish', emoji: '🐠',
+    badgeClass: 'badge-fish', badgeLabel: '🐠 Fish',
+    tag: 'Aquarium',
+    title: 'Setting Up Your First Aquarium: Step-by-Step',
+    excerpt: 'Starting an aquarium is incredibly rewarding. Follow our beginner-friendly guide to set up a healthy, thriving tank that your fish will love — and you will be proud to display.',
+    author: '🧑‍💼', authorName: 'Arun Shankar', date: 'Feb 8, 2025', readTime: '8 min read',
+    content: `
+      <p>A well-setup aquarium is a beautiful, calming centrepiece in any home. Getting the basics right means healthy fish and a crystal-clear tank you can be proud of.</p>
+      <h3>🪣 The Nitrogen Cycle</h3>
+      <p>Before adding fish, you must cycle your tank — this establishes beneficial bacteria that convert toxic ammonia into safe compounds. The cycling process takes 4–6 weeks using a fishless method with ammonia drops.</p>
+      <div class="article-tip-box">💡 Golden Rule: Never add all your fish at once. Introduce 2–3 fish at a time over several weeks to allow the tank biology to adjust.</div>
+      <h3>🌡️ Water Parameters</h3>
+      <ul>
+        <li>Temperature: 24–28°C for tropical fish</li>
+        <li>pH: 6.8–7.5 for most community fish</li>
+        <li>Ammonia: 0 ppm (always)</li>
+        <li>Nitrite: 0 ppm (always)</li>
+        <li>Nitrate: below 20 ppm</li>
+      </ul>
+      <h3>🔧 Essential Equipment</h3>
+      <p>You will need a filter (rated 3–5x tank volume per hour), a heater, LED lighting, a thermometer, a water test kit, and a gravel vacuum. Don't skip the water test kit — it's your diagnostic tool.</p>
+      <h3>🧹 Maintenance Schedule</h3>
+      <p>Change 20–25% of water weekly. Clean the filter media monthly in tank water (never tap water). Test water parameters every two weeks and remove uneaten food daily.</p>
+    `
+  },
+  {
+    id: 5, cat: 'rabbit', emoji: '🐰',
+    badgeClass: 'badge-rabbit', badgeLabel: '🐰 Rabbits',
+    tag: 'Rabbit Care',
+    title: 'Holland Lop Rabbit: Complete Care Guide',
+    excerpt: 'Holland Lops are irresistibly adorable with their floppy ears and gentle nature. Learn how to create the perfect home, diet and routine for your bunny companion.',
+    author: '👩‍⚕️', authorName: 'Dr. Kavya Sharma', date: 'Feb 14, 2025', readTime: '5 min read',
+    content: `
+      <p>Holland Lops are one of the most popular rabbit breeds — compact, floppy-eared and genuinely affectionate. With the right care, they can live 8–12 happy years.</p>
+      <h3>🏡 Housing Setup</h3>
+      <p>Rabbits need space to run, jump and explore. An exercise pen (minimum 4×4 feet) is far better than a small cage. Line the floor with soft bedding — hay, fleece or paper-based litter. Never use wire-bottomed cages.</p>
+      <div class="article-tip-box">💡 Litter Training: Rabbits naturally choose one corner to eliminate. Place a litter box in that corner, filled with hay — rabbits eat and eliminate simultaneously!</div>
+      <h3>🌾 Diet Essentials</h3>
+      <ul>
+        <li>Unlimited fresh timothy hay — makes up 70% of diet</li>
+        <li>1/4 cup pellets per 2 kg body weight daily</li>
+        <li>Fresh leafy greens (romaine, cilantro, parsley)</li>
+        <li>Fresh water in a heavy ceramic bowl</li>
+        <li>No fruits or carrots as staples — treat only</li>
+      </ul>
+      <h3>🤝 Bonding with Your Rabbit</h3>
+      <p>Sit on the floor at their level rather than picking them up initially. Let them approach you. Offer treats from an open palm. Never chase your rabbit — let them initiate contact.</p>
+      <h3>✂️ Grooming</h3>
+      <p>Brush Holland Lops twice a week (daily during shedding season). Check ears weekly for wax buildup and odour. Trim nails every 6–8 weeks and check teeth monthly for overgrowth.</p>
+    `
+  },
+  {
+    id: 6, cat: 'health', emoji: '🏥',
+    badgeClass: 'badge-health', badgeLabel: '🏥 Health',
+    tag: 'Pet Health',
+    title: '10 Warning Signs Your Pet Needs a Vet Immediately',
+    excerpt: 'Recognising early warning signs in your pet can save their life. Learn the 10 critical symptoms that demand an immediate veterinary visit — don\'t wait and watch.',
+    author: '👨‍⚕️', authorName: 'Dr. Suresh Babu', date: 'Mar 1, 2025', readTime: '4 min read',
+    content: `
+      <p>Pets cannot tell us when they're in pain. As a responsible owner, knowing these warning signs could literally save your pet's life.</p>
+      <h3>🚨 Rush to the Vet If You See:</h3>
+      <ul>
+        <li><strong>Difficulty breathing</strong> — open-mouth breathing in cats, laboured breathing in dogs</li>
+        <li><strong>Seizures or collapse</strong> — any loss of consciousness or uncontrolled shaking</li>
+        <li><strong>Pale or blue gums</strong> — a sign of shock, anaemia or heart failure</li>
+        <li><strong>Severe vomiting or diarrhea</strong> — especially with blood</li>
+        <li><strong>Inability to urinate</strong> — especially in male cats (life-threatening within hours)</li>
+        <li><strong>Eye injuries or sudden blindness</strong></li>
+        <li><strong>Severe limping or inability to move a limb</strong></li>
+        <li><strong>Suspected poisoning</strong> — chocolate, grapes, onions, xylitol</li>
+        <li><strong>Swollen or hard abdomen</strong> — could indicate bloat (GDV)</li>
+        <li><strong>Loss of consciousness or extreme weakness</strong></li>
+      </ul>
+      <div class="article-tip-box">🚑 Keep your vet's emergency number and the nearest 24/7 animal hospital saved in your phone before you ever need it.</div>
+      <h3>🌡️ Common Symptoms to Monitor</h3>
+      <p>Not every symptom is an emergency, but these warrant a vet visit within 24 hours: loss of appetite for 24+ hours, excessive thirst or urination, persistent scratching, limping, or behavioural changes.</p>
+      <h3>🛡️ Prevention is Best</h3>
+      <p>Annual health checks, timely vaccinations, deworming every 3 months and maintaining a healthy weight are the four pillars of preventive pet healthcare.</p>
+    `
+  },
+  {
+    id: 7, cat: 'tips', emoji: '💡',
+    badgeClass: 'badge-tips', badgeLabel: '💡 Tips',
+    tag: 'Training',
+    title: 'Basic Commands Every Dog Should Know',
+    excerpt: 'A well-trained dog is a happy, safe and confident dog. Start with these 5 essential commands using positive reinforcement — patience and consistency are your best tools.',
+    author: '🧑‍🏫', authorName: 'Santhosh Raj', date: 'Mar 10, 2025', readTime: '6 min read',
+    content: `
+      <p>Training your dog is one of the most rewarding things you can do together. It builds trust, communication and creates a safe companion for life.</p>
+      <h3>🎯 The 5 Essential Commands</h3>
+      <p><strong>1. SIT:</strong> Hold a treat above your dog's nose and slowly move it back over their head — their bottom will naturally lower. Once seated, say "Sit" clearly and reward instantly.</p>
+      <p><strong>2. STAY:</strong> Ask your dog to sit, then open your palm toward them and say "Stay." Step back, return, and reward. Gradually increase distance and duration.</p>
+      <p><strong>3. COME:</strong> The most important recall command. Crouch down, say "Come!" with an excited tone. Never use this command to scold — it must always mean something wonderful happens.</p>
+      <p><strong>4. DOWN:</strong> Ask your dog to sit, then hold a treat to their nose and slowly lower it to the floor. As they follow, their body lowers. Say "Down" and reward.</p>
+      <p><strong>5. LEAVE IT:</strong> Hold a treat in your closed fist. Let them sniff and paw. The moment they give up and look away, say "Leave it!" and give a different treat from your other hand.</p>
+      <div class="article-tip-box">💡 Golden Rule: Training sessions should be 5–10 minutes maximum for puppies, 10–15 minutes for adult dogs. Always end on a success!</div>
+      <h3>🚫 What NOT to Do</h3>
+      <ul>
+        <li>Never punish or use pain-based training methods</li>
+        <li>Don't repeat commands — say it once, wait</li>
+        <li>Avoid training when you're frustrated or in a hurry</li>
+        <li>Never train right after feeding</li>
+      </ul>
+    `
+  },
+  {
+    id: 8, cat: 'tips', emoji: '🌙',
+    badgeClass: 'badge-tips', badgeLabel: '💡 Tips',
+    tag: 'New Pet',
+    title: 'First Night with a New Puppy — Survival Guide',
+    excerpt: 'The first night with your puppy can be challenging but beautiful. Here is everything you need to prepare, what to expect and how to help your pup settle in with love.',
+    author: '👩‍💼', authorName: 'Deepa Sundaram', date: 'Mar 15, 2025', readTime: '4 min read',
+    content: `
+      <p>Bringing a puppy home for the first time is one of life's most joyful moments — but that first night can also be one of the most exhausting!</p>
+      <h3>🏡 Prepare Before They Arrive</h3>
+      <ul>
+        <li>Set up a cosy crate or playpen in your bedroom</li>
+        <li>Put a warm, covered water bottle under a blanket</li>
+        <li>Add a worn t-shirt of yours so your scent is there</li>
+        <li>Have puppy food, water bowl, treats and pads ready</li>
+      </ul>
+      <h3>🌙 That First Night</h3>
+      <p>Your puppy will likely cry — this is normal. They've just left their mother and littermates. Keep the crate near your bed so they can see, smell and hear you. Don't ignore distress crying, but also don't immediately rescue them from every whimper.</p>
+      <div class="article-tip-box">💡 A ticking clock wrapped in a towel near the crate mimics the heartbeat of littermates and calms many puppies dramatically.</div>
+      <h3>🚽 Night-Time Toilet Trips</h3>
+      <p>Young puppies (8–12 weeks) cannot hold their bladder through the night. Set an alarm to take them out every 2–3 hours initially. Always go to the same spot and use the same cue word consistently.</p>
+      <h3>❤️ Be Patient</h3>
+      <p>Most puppies settle significantly within 3–5 nights once they understand this is their safe, permanent home. Consistency and calm reassurance are your greatest tools.</p>
+    `
+  }
+];
+
+// ── RENDER BLOG GRID ──
+function renderBlog(filter = 'all') {
+  const grid = document.getElementById('blog-grid');
+  const filtered = filter === 'all' ? blogPosts : blogPosts.filter(p => p.cat === filter);
+  if (!filtered.length) {
+    grid.innerHTML = `<p style="color:var(--text-light);font-weight:700;padding:20px 0;grid-column:1/-1;">No articles found in this category.</p>`;
+    return;
+  }
+  grid.innerHTML = filtered.map((post, i) => `
+    <div class="blog-card" style="animation-delay:${i*0.06}s">
+      <div class="blog-card-img">
+        <div class="blog-emoji">${post.emoji}</div>
+        <div class="blog-cat-badge ${post.badgeClass}">${post.badgeLabel}</div>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-tag">✍️ ${post.tag}</div>
+        <div class="blog-card-title">${post.title}</div>
+        <div class="blog-card-excerpt">${post.excerpt}</div>
+        <div class="blog-card-footer">
+          <div class="blog-author">
+            <div class="author-avatar">${post.author}</div>
+            <div>
+              <div class="author-name">${post.authorName}</div>
+              <div class="author-date">${post.date} · ${post.readTime}</div>
+            </div>
+          </div>
+          <button class="blog-read-btn" onclick="openArticle(${post.id})">Read →</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ── FILTER ──
+function filterPosts(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const videoSection = document.getElementById('section-video');
+  const articleSection = document.getElementById('section-articles');
+  if (cat === 'video') {
+    videoSection.style.display = 'block';
+    articleSection.style.display = 'none';
+  } else if (cat === 'all') {
+    videoSection.style.display = 'block';
+    articleSection.style.display = 'block';
+    renderBlog('all');
+    // show/hide video cards
+    document.querySelectorAll('.video-card').forEach(vc => vc.style.display = 'block');
+  } else {
+    videoSection.style.display = 'block';
+    articleSection.style.display = 'block';
+    renderBlog(cat);
+    // filter video cards
+    document.querySelectorAll('.video-card').forEach(vc => {
+      vc.style.display = vc.dataset.cat === cat ? 'block' : 'none';
+    });
+    // If no videos match, hide section
+    const visibleVideos = [...document.querySelectorAll('.video-card')].filter(v => v.style.display !== 'none');
+    videoSection.style.display = visibleVideos.length ? 'block' : 'none';
+  }
+}
+
+// ── OPEN ARTICLE MODAL ──
+function openArticle(id) {
+  const post = blogPosts.find(p => p.id === id);
+  document.getElementById('articleTitle').textContent = post.title;
+  document.getElementById('articleBody').innerHTML = post.content;
+  document.getElementById('articleModal').classList.add('open');
+}
+function closeArticle() {
+  document.getElementById('articleModal').classList.remove('open');
+}
+document.getElementById('articleModal').addEventListener('click', function(e) {
+  if (e.target === this) closeArticle();
+});
+
+// ── CHECKLIST ──
+function toggleCheck(item) {
+  item.classList.toggle('checked');
+  const checked = document.querySelectorAll('.checklist-item.checked').length;
+  const total = document.querySelectorAll('.checklist-item').length;
+  if (checked === total) showToast('🎉 All health checks complete! Great pet parent!');
+}
+
+// ── NEWSLETTER ──
+function subscribeNewsletter() {
+  const name = document.getElementById('nl-name').value.trim();
+  const email = document.getElementById('nl-email').value.trim();
+  if (!name || !email) { showToast('⚠️ Please enter your name and email!'); return; }
+  if (!email.includes('@')) { showToast('⚠️ Please enter a valid email!'); return; }
+  document.getElementById('nl-name').value = '';
+  document.getElementById('nl-email').value = '';
+  showToast('🎉 Subscribed! Welcome to the Karupi family, ' + name + '!');
+}
+
+// ── TOAST ──
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── INIT ──
+renderBlog();
+</script>
+</body>
+</html>

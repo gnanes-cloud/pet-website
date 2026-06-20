@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Health Tips — Karupi Pet Store 🐾</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lavender: #b57bee;
+    --lavender-light: #e8d5f7;
+    --lavender-mid: #c99ef0;
+    --lavender-dark: #7c3aad;
+    --lavender-pale: #f5eeff;
+    --lavender-deep: #5b1fa0;
+    --card-bg: #fdf8ff;
+    --text: #2d1b4e;
+    --text-light: #7a5fa0;
+    --accent: #ff6eb4;
+    --accent2: #ffb347;
+    --green: #4caf85;
+    --shadow: 0 8px 32px rgba(120,60,180,0.13);
+    --shadow-hover: 0 16px 48px rgba(120,60,180,0.22);
+    --radius: 20px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--lavender-pale);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* MARQUEE */
+  .marquee-bar {
+    background: linear-gradient(90deg, var(--lavender-dark), var(--lavender), var(--lavender-dark));
+    color: white; padding: 10px 0; overflow: hidden;
+    font-weight: 700; font-size: 14px; letter-spacing: 0.5px;
+  }
+  .marquee-track { display: flex; animation: marquee 32s linear infinite; white-space: nowrap; }
+  .marquee-track span { padding: 0 36px; }
+  .marquee-track span::before { content: '🐾 '; }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--lavender-deep) 0%, var(--lavender-dark) 55%, var(--lavender) 100%);
+    padding: 0 32px; position: sticky; top: 0; z-index: 1000;
+    box-shadow: 0 4px 24px rgba(90,30,160,0.3);
+  }
+  .header-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; gap: 24px; height: 76px; }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
+  .logo-icon {
+    width: 50px; height: 50px;
+    background: linear-gradient(135deg, var(--accent), var(--lavender-light));
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 24px; box-shadow: 0 4px 16px rgba(255,126,179,0.4);
+  }
+  .logo-name { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 900; color: white; line-height: 1.1; text-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+  .logo-sub { font-size: 10px; font-weight: 700; color: var(--lavender-light); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 8px; margin-left: auto; }
+  .nav-link {
+    background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
+    color: white; border-radius: 14px; padding: 8px 18px; cursor: pointer;
+    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px;
+    text-decoration: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s;
+  }
+  .nav-link:hover { background: rgba(255,255,255,0.28); transform: translateY(-1px); }
+  .nav-link.active { background: rgba(255,255,255,0.35); }
+
+  /* HERO */
+  .tips-hero {
+    background: linear-gradient(135deg, var(--green), #2d8c65 50%, var(--lavender-dark));
+    padding: 80px 32px; text-align: center; position: relative; overflow: hidden;
+  }
+  .tips-hero::before {
+    content: ''; position: absolute; top: -80px; left: -80px; width: 360px; height: 360px;
+    background: radial-gradient(circle, rgba(76,175,133,0.3) 0%, transparent 70%); border-radius: 50%;
+  }
+  .tips-hero::after {
+    content: ''; position: absolute; bottom: -80px; right: -40px; width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(181,123,238,0.2) 0%, transparent 70%); border-radius: 50%;
+  }
+  .tips-hero-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+  .tips-hero h1 {
+    font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 64px);
+    font-weight: 900; color: white; line-height: 1.1; text-shadow: 0 2px 12px rgba(0,0,0,0.2); margin-bottom: 16px;
+  }
+  .tips-hero h1 span { color: #c0ffdc; }
+  .tips-hero p { font-size: 18px; color: rgba(255,255,255,0.9); font-weight: 600; line-height: 1.6; }
+
+  /* FILTER TABS */
+  .filter-bar {
+    background: white; padding: 14px 32px; border-bottom: 2px solid var(--lavender-light);
+    box-shadow: 0 2px 12px rgba(120,60,180,0.07); position: sticky; top: 76px; z-index: 900;
+  }
+  .filter-inner {
+    max-width: 1100px; margin: 0 auto; display: flex; gap: 10px;
+    overflow-x: auto; scrollbar-width: none; justify-content: center; flex-wrap: wrap;
+  }
+  .filter-inner::-webkit-scrollbar { display: none; }
+  .filter-btn {
+    background: var(--lavender-pale); border: 2px solid var(--lavender-light);
+    border-radius: 30px; padding: 9px 20px; cursor: pointer;
+    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 14px;
+    color: var(--lavender-dark); transition: all 0.2s; white-space: nowrap;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--lavender-dark); color: white; border-color: var(--lavender-dark);
+    transform: translateY(-2px); box-shadow: 0 6px 18px rgba(120,60,180,0.25);
+  }
+
+  /* MAIN */
+  main { max-width: 1100px; margin: 0 auto; padding: 56px 24px; }
+
+  .tips-section { margin-bottom: 64px; }
+  .tips-section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+  .tips-section-icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; flex-shrink: 0;
+  }
+  .tips-section-icon.dog   { background: linear-gradient(135deg, #ffecd2, #ffb347); }
+  .tips-section-icon.cat   { background: linear-gradient(135deg, #fce4ec, #f48fb1); }
+  .tips-section-icon.bird  { background: linear-gradient(135deg, #e8f5e9, #81c784); }
+  .tips-section-icon.fish  { background: linear-gradient(135deg, #e3f2fd, #64b5f6); }
+  .tips-section-icon.general { background: linear-gradient(135deg, var(--lavender-light), var(--lavender-mid)); }
+  .tips-section-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: var(--lavender-deep); }
+  .tips-section-sub { color: var(--text-light); font-weight: 600; font-size: 14px; }
+
+  .tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+  .tip-card {
+    background: var(--card-bg); border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow); border: 1.5px solid var(--lavender-light);
+    transition: transform 0.25s, box-shadow 0.25s; animation: fadeUp 0.5s ease both;
+    display: flex; flex-direction: column;
+  }
+  .tip-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .tip-card-top {
+    padding: 24px 24px 0; display: flex; align-items: flex-start; gap: 14px;
+  }
+  .tip-emoji-badge {
+    width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 26px;
+  }
+  .tip-card-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.2; }
+  .tip-card-tag {
+    display: inline-block; border-radius: 10px; padding: 2px 10px;
+    font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tip-card-body { padding: 14px 24px 24px; flex: 1; }
+  .tip-card-desc { font-size: 14px; color: #5a4070; font-weight: 600; line-height: 1.65; margin-bottom: 14px; }
+  .tip-points { list-style: none; }
+  .tip-points li {
+    font-size: 13px; color: var(--text-light); font-weight: 600;
+    padding: 5px 0; border-bottom: 1px solid var(--lavender-light);
+    display: flex; align-items: flex-start; gap: 8px; line-height: 1.4;
+  }
+  .tip-points li:last-child { border-bottom: none; }
+  .tip-points li::before { content: '✓'; color: var(--green); font-weight: 900; flex-shrink: 0; }
+
+  /* EMERGENCY SECTION */
+  .emergency-section {
+    background: linear-gradient(135deg, #ff4444, #cc0000);
+    border-radius: 28px; padding: 44px 40px; margin-bottom: 60px;
+    box-shadow: 0 12px 40px rgba(200,0,0,0.2);
+  }
+  .emergency-section h2 {
+    font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 900;
+    color: white; margin-bottom: 8px;
+  }
+  .emergency-section p { color: rgba(255,255,255,0.9); font-weight: 600; font-size: 15px; margin-bottom: 24px; }
+  .emergency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .emergency-item {
+    background: rgba(255,255,255,0.15); border-radius: 14px; padding: 14px 18px;
+    color: white; font-weight: 700; font-size: 14px; border: 1.5px solid rgba(255,255,255,0.25);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .emergency-item span { font-size: 22px; }
+
+  /* VET CONTACT */
+  .vet-cta {
+    background: linear-gradient(135deg, var(--lavender-dark), var(--lavender-deep));
+    border-radius: 28px; padding: 44px 40px; text-align: center;
+    box-shadow: 0 12px 40px rgba(90,30,160,0.25); margin-bottom: 40px;
+  }
+  .vet-cta h2 { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 900; color: white; margin-bottom: 10px; }
+  .vet-cta p { color: rgba(255,255,255,0.85); font-weight: 600; font-size: 15px; margin-bottom: 24px; }
+  .vet-cta-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: white; color: var(--lavender-dark); border: none; border-radius: 16px;
+    padding: 15px 34px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 17px;
+    cursor: pointer; text-decoration: none; transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .vet-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+
+  /* FOOTER */
+  footer {
+    background: linear-gradient(135deg, var(--lavender-deep), var(--lavender-dark));
+    color: white; padding: 48px 32px 28px; margin-top: 40px;
+  }
+  .footer-inner {
+    max-width: 1300px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 36px; margin-bottom: 36px;
+  }
+  .footer-col h3 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 14px; color: var(--lavender-light); }
+  .footer-col p, .footer-col a { font-size: 14px; color: rgba(255,255,255,0.72); text-decoration: none; display: block; margin-bottom: 8px; font-weight: 600; transition: color 0.2s; }
+  .footer-col a:hover { color: white; }
+  .footer-bottom { text-align: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.15); font-size: 14px; color: rgba(255,255,255,0.6); font-weight: 600; }
+
+  .hidden { display: none !important; }
+  @media(max-width: 768px) {
+    main { padding: 36px 16px; }
+    .emergency-section { padding: 32px 24px; }
+    .vet-cta { padding: 32px 24px; }
+   
+  }
+</style>
+</head>
+<body>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Welcome to Karupi Pet Store!</span><span>Free Delivery on Orders Over ₹2000</span>
+    <span>100% Health Guaranteed Pets</span><span>24/7 Vet Support Available</span>
+    <span>Premium Dogs Starting ₹18,000</span><span>Adorable Cats &amp; Kittens Available</span>
+    <span>Exotic Fish &amp; Aquarium Collections</span><span>Beautiful Birds &amp; Parrots</span>
+    <span>Cute Rabbits &amp; Hamsters</span><span>Call Us: +91 9750784578</span>
+    <span>Welcome to Karupi Pet Store!</span><span>Free Delivery on Orders Over ₹2000</span>
+    <span>100% Health Guaranteed Pets</span><span>24/7 Vet Support Available</span>
+    <span>Premium Dogs Starting ₹18,000</span><span>Adorable Cats &amp; Kittens Available</span>
+    <span>Exotic Fish &amp; Aquarium Collections</span><span>Beautiful Birds &amp; Parrots</span>
+    <span>Cute Rabbits &amp; Hamsters</span><span>Call Us: +91 9750784578</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="index.html">
+      <div class="logo-icon">🐾</div>
+      <div>
+        <div class="logo-name">Karupi Pet Store</div>
+        <div class="logo-sub">Your Happy Pet Family</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="karupistore.html">🏠 Home</a>
+      <a class="nav-link active" href="health-tips.html">🌿 Health Tips</a>
+      <a class="nav-link active" href="pet-care-blog.html">Pet Care Blog</a>
+      <a class="nav-link active" href="faqs.html">💬 FAQs</a>
+      <a class="nav-link active" href="track-order.html">📦Track Your Order</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="tips-hero">
+  <div class="tips-hero-inner">
+    <h1>Pet <span>Health Tips</span> 🌿</h1>
+    <p>Expert-approved advice from our in-house vets to help your furry, feathery, and scaly friends live their best, healthiest lives.</p>
+  </div>
+</section>
+
+<!-- FILTER TABS -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn active" onclick="filterTips('all', this)">🌟 All Tips</button>
+    <button class="filter-btn" onclick="filterTips('dog', this)">🐕 Dogs</button>
+    <button class="filter-btn" onclick="filterTips('cat', this)">🐱 Cats</button>
+    <button class="filter-btn" onclick="filterTips('bird', this)">🦜 Birds</button>
+    <button class="filter-btn" onclick="filterTips('fish', this)">🐠 Fish</button>
+    <button class="filter-btn" onclick="filterTips('general', this)">💊 General Care</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- DOGS -->
+  <section class="tips-section" data-section="dog">
+    <div class="tips-section-header">
+      <div class="tips-section-icon dog">🐕</div>
+      <div>
+        <div class="tips-section-title">Dog Health Tips</div>
+        <div class="tips-section-sub">Keep your canine companion healthy & happy</div>
+      </div>
+    </div>
+    <div class="tips-grid">
+
+      <div class="tip-card" style="animation-delay:0.05s">
+        <div class="tip-card-top">
+          <div class="tip-emoji-badge" style="background:linear-gradient(135deg,#fff3e0,#ffcc80)">💉</div>
+          <div>
+            <div class="tip-card-title">Vaccination Schedule</div>
+            <span class="tip-card-tag" style="background:#fff3e0;color:#e65100;">Essential</span>
+          </div>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-card-desc">Keeping your dog's vaccinations up to date is the single most important thing you can do for their health.</div>
+          <ul class="tip-points">
+            <li>Core vaccines: Distemper, Parvo, Hepatitis at 6–8 weeks</li>
+            <li>Rabies vaccine at 12–16 weeks, then annually</li>
+            <li>Bordetella (kennel cough) if your dog meets other dogs</li>
+            <li>Keep a vaccination card and show it to your vet annually</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tip-card" style="animation-delay:0.1s">
+        <div class="tip-card-top">
+          <div class="tip-emoji-badge" style="background:linear-gradient(135deg,#e8f5e9,#a5d6a7)">🍗</div>
+          <div>
+            <div class="tip-card-title">Dog Nutrition Guide</div>
+            <span class="tip-card-tag" style="background:#e8f5e9;color:#2e7d32;">Diet</span>
+          </div>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-card-desc">A balanced diet is the foundation of your dog's long-term health, energy, and coat quality.</div>
+          <ul class="tip-points">
+            <li>Feed age-appropriate food (puppy, adult, senior formula)</li>
+            <li>Avoid grapes, raisins, onions, garlic, chocolate — all toxic!</li>
+            <li>Provide fresh water at all times</li>
+            <li>Measure portions to prevent obesity — a leading health issue</li>
+            <li>Treats should not exceed 10% of daily caloric intake</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tip-card" style="animation-delay:0.15s">
+        <div class="tip-card-top">
+          <div class="tip-emoji-badge" style="background:linear-gradient(135deg,#e3f2fd,#90caf9)">🏃</div>
+          <div>
+            <div class="tip-card-title">Exercise & Mental Health</div>
+            <span class="tip-card-tag" style="background:#e3f2fd;color:#1565c0;">Wellness</span>
+          </div>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-card-desc">Physical and mental stimulation prevent destructive behavior and keep your dog joyful.</div>
+          <ul class="tip-points">
+            <li>Small breeds: 30 min walk daily; large breeds: 60–90 min</li>
+            <li>Use puzzle feeders to stimulate the mind</li>
+            <li>Socialization with other dogs and humans is crucial</li>
+            <li>Swimming is excellent low-impact exercise for older dogs</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tip-card" style="animation-delay:0.2s">
+        <div class="tip-card-top">
+          <div class="tip-emoji-badge" style="background:linear-gradient(135deg,#fce4ec,#f48fb1)">🪮</div>
+          <div>
+            <div class="tip-card-title">Grooming Basics</div>
+            <span class="tip-card-tag" style="background:#fce4ec;color:#880e4f;">Grooming</span>
+          </div>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-card-desc">Regular grooming prevents skin issues and helps you spot early signs of health problems.</div>
+          <ul class="tip-points">
+            <li>Brush coat 2–3× per week; daily for long-haired breeds</li>
+            <li>Bath every 4–6 weeks with dog-safe shampoo only</li>
+            <li>Trim nails monthly to prevent joint pain</li>
+            <li>Clean ears weekly; check for redness or odour</li>
+            <li>Brush teeth 3× per week to prevent dental disease</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CATS -->
+  <section class="tips-section" data-section="cat">
+    <div class="tips-section-header">
+      <div class="tips-section-icon cat">🐱</div>
+      <div>
+        <div class="tips-section-title">Cat Health Tips</div>
+        <div class="tips-section-sub">Feline care essentials from our expert vets</div>
+      </div>
+    </div>
+    <div class="tips-grid">
+
+      <div class="tip-card" style="animation-delay:0.05s">
+        <div class="tip-card-top">
+          <div class="tip-emoji-badge" style="background:linear-gradient(135deg,#fce4ec,#ef9a9a)">💊</div>
+          <div>
+            <div class="tip-card-title">Deworming & Parasite Control</div>
+            <span class="tip-card-tag" style="background:#fce4ec;color:#c62828;">Essential</span>
+          </div>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-card-desc">Cats are prone to internal and external parasites. Regular prevention is key.</div>
+          <ul class="tip-points">
+            <li>Deworm kittens every 2 weeks until 3 months old</li>
+            <li>Adult cats: deworm every 3–6 months</li>
+            <li>Use vet-recommended flea/tick treatments monthly</li>
+            <li>Check coat regularly for flea dirt or unusual scratching</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tip-card" style="animation-delay:0.1s">
+        <div class="tip-card-top">
+          <div class="tip-emoji-badge" style="background:linear-gradient(135deg,#f3e5f5,#ce93d8)">🥩</div>
+          <div>
+            <div class="tip-card-title">Cat Diet & Hydration</div>
+            <span class="tip-card-tag" style="background:#f3e5f5;color:#6a1b9a;">Diet</span>
+          </div>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-card-desc">Cats are obligate carnivores. Their diet must be rich in animal protein to thrive.</div>
+          <ul class="tip-points">
+            <li>Never feed dog food — cats need taurine found only in cat food</li>
+            <li>Wet food helps with hydration; cats rarely drink enough water</li>
+            <li>Avoid milk — most adult cats are lactose intolerant</li>
+            <li>Toxic to cats: onions, garlic, xylitol, raw dough, caffeine</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tip-card" style="animation-delay:0.15s">
+        <div class="tip-card-top">
+          <div class="tip-emoji-badge" style="background:linear-gradient(135deg,#e8f5e9,#66bb6a)">🧼</div>
+          <div>
+            <div class="tip-card-title">Litter Box Hygiene</div>
+            <span class="tip-card-tag" style="background:#e8f5e9;color:#1b5e20;">Hygiene</span>
+          </div>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-card-desc">A clean litter box is crucial for your cat's health and preventing stress-related illness.</div>
+          <ul class="tip-points">
+            <li>Scoop the litter box once or twice daily</li>
+            <li>Replace litter fully and wash the box weekly</li>
+            <li>One litter box per cat, plus one extra (n+1 rule)</li>
+            <li>Place boxes in quiet, accessible locations</li>
+            <li>Changes in litter habits can signal urinary issues — see a vet</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BIRDS -->
+  <section class="tips-section" data-section="bird">
+    <div class="tips-section-header">
+      <div class="tips-section-icon bird">🦜</div>
+      <div>
+        <div class="tips-section-title">Bird Health Tips</div>
+        <div class="tips-section-sub">Expert care for your feathered friends</div>
+      </div>
+    </div>
+    <div class="tips-grid">
+
+      <div class="tip-card" style="animation-delay:0.05s">
+        <div class="tip-card-top">
+          <div class="tip-emoji-badge" style="background:linear-gradient(135deg,#e8f5e9,#81c784)">🌱</div>
+          <div>
+            <div class="tip-card-title">Bird Nutrition</div>
+            <span class="tip-card-tag" style="background:#e8f5e9;color:#2e7d32;">Diet</span>
+          </div>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-card-desc">A seed-only diet is a common mistake. Birds need variety for optimal health.</div>
+          <ul class="tip-points">
+            <li>Pellets should form 60–70% of diet; seeds only as treats</li>
+            <li>Safe fruits: apple, mango, papaya (remove seeds)</li>
+            <li>Safe veggies: carrots, leafy greens, sweet potato</li>
+            <li>Never give: avocado, chocolate, caffeine, alcohol, onion</li>
+            <li>Fresh water daily; clean water dish thoroughly</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tip-card" style="animation-delay:0.1s">
+        <div class="tip-card-top">
+          <div class="tip-emoji-badge" style="background:linear-gradient(135deg,#e3f2fd,#64b5f6)">🏠</div>
+          <div>
+            <div class="tip-card-title">Cage & Environment</div>
+            <span class="tip-card-tag" style="background:#e3f2fd;color:#0d47a1;">Environment</span>
+          </div>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-card-desc">Birds are sensitive to their environment. The right setup prevents stress and disease.</div>
+          <ul class="tip-points">
+            <li>Cage bars should be horizontal for climbing; wide spacing for safety</li>
+            <li>Minimum 3–4 hours of supervised out-of-cage time daily</li>
+            <li>Keep away from kitchen fumes — Teflon/PTFE fumes are deadly to birds</li>
+            <li>Maintain room temperature 20–26°C; avoid drafts</li>
+            <li>10–12 hours of sleep in a quiet, covered cage</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FISH -->
+  <section class="tips-section" data-section="fish">
+    <div class="tips-section-header">
+      <div class="tips-section-icon fish">🐠</div>
+      <div>
+        <div class="tips-section-title">Fish & Aquarium Tips</div>
+        <div class="tips-section-sub">Keep your aquatic world crystal clear and healthy</div>
+      </div>
+    </div>
+    <div class="tips-grid">
+
+      <div class="tip-card" style="animation-delay:0.05s">
+        <div class="tip-card-top">
+          <div class="tip-emoji-badge" style="background:linear-gradient(135deg,#e3f2fd,#4fc3f7)">🧪</div>
+          <div>
+            <div class="tip-card-title">Water Quality Management</div>
+            <span class="tip-card-tag" style="background:#e3f2fd;color:#01579b;">Critical</span>
+          </div>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-card-desc">Water quality is everything in fishkeeping. Most fish deaths are caused by poor water conditions.</div>
+          <ul class="tip-points">
+            <li>Cycle your tank for 4–6 weeks before adding fish</li>
+            <li>Change 25–30% of water weekly</li>
+            <li>Test water weekly: pH, ammonia, nitrite, nitrate</li>
+            <li>Use a good filter rated for 2× your tank volume</li>
+            <li>Dechlorinate tap water before adding to tank</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tip-card" style="animation-delay:0.1s">
+        <div class="tip-card-top">
+          <div class="tip-emoji-badge" style="background:linear-gradient(135deg,#fff8e1,#ffcc02)">🍽️</div>
+          <div>
+            <div class="tip-card-title">Feeding Your Fish</div>
+            <span class="tip-card-tag" style="background:#fff8e1;color:#e65100;">Diet</span>
+          </div>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-card-desc">Overfeeding is the #1 mistake fishkeepers make and quickly degrades water quality.</div>
+          <ul class="tip-points">
+            <li>Feed only what fish can consume in 2–3 minutes</li>
+            <li>Feed 1–2 times daily; skip one day per week</li>
+            <li>Vary diet: flakes, pellets, frozen bloodworms, veggies</li>
+            <li>Remove uneaten food after 5 minutes with a net</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GENERAL CARE -->
+  <section class="tips-section" data-section="general">
+    <div class="tips-section-header">
+      <div class="tips-section-icon general">💊</div>
+      <div>
+        <div class="tips-section-title">General Pet Care</div>
+        <div class="tips-section-sub">Universal tips every pet parent should know</div>
+      </div>
+    </div>
+    <div class="tips-grid">
+
+      <div class="tip-card" style="animation-delay:0.05s">
+        <div class="tip-card-top">
+          <div class="tip-emoji-badge" style="background:linear-gradient(135deg,var(--lavender-light),var(--lavender-mid))">🩺</div>
+          <div>
+            <div class="tip-card-title">Regular Vet Checkups</div>
+            <span class="tip-card-tag" style="background:var(--lavender-light);color:var(--lavender-deep);">Essential</span>
+          </div>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-card-desc">Prevention is always better and cheaper than cure. Regular checkups can catch issues early.</div>
+          <ul class="tip-points">
+            <li>Annual checkup for healthy adult pets</li>
+            <li>Twice yearly for seniors (7+ years) and young animals</li>
+            <li>Keep a pet health record or app to track visits</li>
+            <li>Don't wait for visible symptoms — subtle changes matter</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tip-card" style="animation-delay:0.1s">
+        <div class="tip-card-top">
+          <div class="tip-emoji-badge" style="background:linear-gradient(135deg,#fff3e0,#ffb74d)">🧠</div>
+          <div>
+            <div class="tip-card-title">Mental Wellbeing</div>
+            <span class="tip-card-tag" style="background:#fff3e0;color:#e65100;">Wellness</span>
+          </div>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-card-desc">Mental health is just as important as physical health for all pets. Boredom leads to illness.</div>
+          <ul class="tip-points">
+            <li>Provide enrichment toys and rotation of activities</li>
+            <li>Spend dedicated quality time with your pet daily</li>
+            <li>Watch for signs of anxiety: hiding, aggression, over-grooming</li>
+            <li>Consider a companion animal for social species</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tip-card" style="animation-delay:0.15s">
+        <div class="tip-card-top">
+          <div class="tip-emoji-badge" style="background:linear-gradient(135deg,#e8f5e9,#a5d6a7)">🏷️</div>
+          <div>
+            <div class="tip-card-title">ID & Microchipping</div>
+            <span class="tip-card-tag" style="background:#e8f5e9;color:#1b5e20;">Safety</span>
+          </div>
+        </div>
+        <div class="tip-card-body">
+          <div class="tip-card-desc">Hundreds of pets go missing every year. Simple precautions can save your pet's life.</div>
+          <ul class="tip-points">
+            <li>Microchip your pet — a lifelong, permanent ID</li>
+            <li>Always use a collar with an ID tag showing your phone number</li>
+            <li>Update microchip registry if you move or change numbers</li>
+            <li>Take current photos of your pet every 6 months</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EMERGENCY SIGNS -->
+  <div class="emergency-section">
+    <h2>🚨 Emergency Warning Signs — Act Immediately!</h2>
+    <p>If your pet shows any of these signs, call your vet or rush to an emergency clinic right away:</p>
+    <div class="emergency-grid">
+      <div class="emergency-item"><span>😮‍💨</span> Difficulty breathing</div>
+      <div class="emergency-item"><span>🤢</span> Persistent vomiting or diarrhoea</div>
+      <div class="emergency-item"><span>💔</span> Pale or blue gums</div>
+      <div class="emergency-item"><span>😵</span> Collapse or loss of consciousness</div>
+      <div class="emergency-item"><span>🩸</span> Uncontrolled bleeding</div>
+      <div class="emergency-item"><span>🦴</span> Suspected fracture or injury</div>
+      <div class="emergency-item"><span>🌡️</span> Seizures or tremors</div>
+      <div class="emergency-item"><span>💊</span> Known or suspected poisoning</div>
+    </div>
+  </div>
+
+  <!-- VET CTA -->
+  <div class="vet-cta">
+    <h2>🏥 Need Expert Vet Advice?</h2>
+    <p>Our in-house veterinary team at Karupi Pet Store is available 24/7 to answer your questions and guide your pet's health journey.</p>
+    <a class="vet-cta-btn" href="tel:+919750784578">📞 Call Us: +91 9750784578</a>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h3>🐾 Karupi Pet Store</h3>
+      <p>Your trusted source for happy, healthy pets. We connect loving families with their perfect companions.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <a href="index.html">🏠 Home</a>
+      <a href="about.html">🐾 About Us</a>
+      <a href="health-tips.html">🌿 Pet Health Tips</a>
+    </div>
+    <div class="footer-col">
+      <h3>Support</h3>
+      <a href="#">Track Your Order</a>
+      <a href="#">Return Policy</a>
+      <a href="#">FAQs</a>
+    </div>
+    <div class="footer-col">
+      <h3>Contact Us</h3>
+      <p>📍 Puducherry</p>
+      <p>📞 +91 9750784578</p>
+      <p>✉️ info@karupipets.com</p>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2025 <strong>Karupi Pet Store</strong> — Made with ❤️ for pet lovers across India.</div>
+</footer>
+
+<script>
+function filterTips(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tips-section[data-section]').forEach(s => {
+    if (cat === 'all' || s.dataset.section === cat) {
+      s.classList.remove('hidden');
+    } else {
+      s.classList.add('hidden');
+    }
+  });
+}
+</script>
+</body>
+</html>

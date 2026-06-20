@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQs & AI Assistant — Karupi Pet Store 🐾</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lavender: #b57bee;
+    --lavender-light: #e8d5f7;
+    --lavender-mid: #c99ef0;
+    --lavender-dark: #7c3aad;
+    --lavender-pale: #f5eeff;
+    --lavender-deep: #5b1fa0;
+    --card-bg: #fdf8ff;
+    --text: #2d1b4e;
+    --text-light: #7a5fa0;
+    --accent: #ff6eb4;
+    --accent2: #ffb347;
+    --green: #4caf85;
+    --shadow: 0 8px 32px rgba(120,60,180,0.13);
+    --shadow-hover: 0 16px 48px rgba(120,60,180,0.22);
+    --radius: 20px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Nunito', sans-serif; background: var(--lavender-pale); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+  .marquee-bar { background: linear-gradient(90deg, var(--lavender-dark), var(--lavender), var(--lavender-dark)); color: white; padding: 10px 0; overflow: hidden; font-weight: 700; font-size: 14px; }
+  .marquee-track { display: flex; animation: marquee 32s linear infinite; white-space: nowrap; }
+  .marquee-track span { padding: 0 36px; }
+  .marquee-track span::before { content: '🐾 '; }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  header { background: linear-gradient(135deg, var(--lavender-deep) 0%, var(--lavender-dark) 55%, var(--lavender) 100%); padding: 0 32px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 24px rgba(90,30,160,0.3); }
+  .header-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; gap: 24px; height: 76px; }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
+  .logo-icon { width: 50px; height: 50px; background: linear-gradient(135deg, var(--accent), var(--lavender-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 16px rgba(255,126,179,0.4); }
+  .logo-name { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 900; color: white; line-height: 1.1; }
+  .logo-sub { font-size: 10px; font-weight: 700; color: var(--lavender-light); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 8px; margin-left: auto; flex-wrap: wrap; }
+  .nav-link { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); color: white; border-radius: 14px; padding: 8px 18px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
+  .nav-link:hover { background: rgba(255,255,255,0.28); transform: translateY(-1px); }
+  .nav-link.active { background: rgba(255,255,255,0.35); }
+
+  .faq-hero { background: linear-gradient(135deg, var(--lavender-dark), var(--lavender-deep) 50%, var(--lavender-mid)); padding: 72px 32px 80px; text-align: center; position: relative; overflow: hidden; }
+  .faq-hero::before { content:''; position:absolute; top:-80px; left:-80px; width:360px; height:360px; background: radial-gradient(circle, rgba(181,123,238,0.25) 0%, transparent 70%); border-radius:50%; }
+  .faq-hero::after { content:''; position:absolute; bottom:-80px; right:-40px; width:400px; height:400px; background: radial-gradient(circle, rgba(255,110,180,0.18) 0%, transparent 70%); border-radius:50%; }
+  .faq-hero-inner { position:relative; z-index:1; max-width:700px; margin:0 auto; }
+  .faq-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(34px,5vw,58px); font-weight:900; color:white; line-height:1.1; margin-bottom:14px; }
+  .faq-hero h1 span { color: var(--lavender-light); }
+  .faq-hero p { font-size:17px; color:rgba(255,255,255,0.85); font-weight:600; line-height:1.6; }
+
+  .page-body { max-width: 1200px; margin: 0 auto; padding: 56px 24px; display: grid; grid-template-columns: 1fr 420px; gap: 40px; align-items: start; }
+
+  .faq-section-label { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: var(--lavender-deep); margin-bottom: 6px; }
+  .faq-section-sub { color: var(--text-light); font-weight: 600; font-size: 14px; margin-bottom: 28px; }
+  .faq-category { margin-bottom: 36px; }
+  .faq-category-title { font-size: 16px; font-weight: 800; color: var(--lavender-dark); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.8px; }
+  .faq-item { background: var(--card-bg); border: 1.5px solid var(--lavender-light); border-radius: 16px; margin-bottom: 10px; overflow: hidden; box-shadow: var(--shadow); transition: box-shadow 0.2s; animation: fadeUp 0.4s ease both; }
+  .faq-item:hover { box-shadow: var(--shadow-hover); }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+  .faq-q { width:100%; background:none; border:none; padding:18px 22px; display:flex; align-items:center; justify-content:space-between; gap:14px; cursor:pointer; font-family:'Nunito',sans-serif; font-weight:700; font-size:15px; color:var(--text); text-align:left; transition:background 0.2s; }
+  .faq-q:hover { background: var(--lavender-pale); }
+  .faq-q.open { background: var(--lavender-pale); color: var(--lavender-dark); }
+  .faq-chevron { flex-shrink:0; width:28px; height:28px; border-radius:50%; background:var(--lavender-light); display:flex; align-items:center; justify-content:center; font-size:13px; transition:transform 0.3s, background 0.2s; }
+  .faq-q.open .faq-chevron { transform:rotate(180deg); background:var(--lavender-dark); color:white; }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s; font-size:14px; color:#5a4070; font-weight:600; line-height:1.7; padding:0 22px; }
+  .faq-a.open { max-height:320px; padding:0 22px 18px; }
+
+  /* CHAT */
+  .ai-chat-panel { background: var(--card-bg); border-radius: 28px; overflow: hidden; box-shadow: 0 12px 48px rgba(90,30,160,0.18); border: 1.5px solid var(--lavender-light); position: sticky; top: 96px; display: flex; flex-direction: column; height: 640px; }
+  .chat-header { background: linear-gradient(135deg, var(--lavender-deep), var(--lavender-dark)); padding: 20px 24px; display: flex; align-items: center; gap: 14px; }
+  .chat-avatar { width:46px; height:46px; border-radius:50%; flex-shrink:0; background:linear-gradient(135deg,var(--accent),var(--lavender-light)); display:flex; align-items:center; justify-content:center; font-size:22px; animation:pulse 2.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { box-shadow:0 4px 14px rgba(255,126,179,0.4); } 50% { box-shadow:0 4px 24px rgba(255,126,179,0.75); } }
+  .chat-header-name { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:white; }
+  .chat-header-status { font-size:12px; color:rgba(255,255,255,0.75); font-weight:700; display:flex; align-items:center; gap:5px; margin-top:2px; }
+  .status-dot { width:7px; height:7px; background:#4cff91; border-radius:50%; animation:blink 1.8s ease-in-out infinite; }
+  @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+  .chat-messages { flex:1; overflow-y:auto; padding:18px 18px 8px; display:flex; flex-direction:column; gap:12px; scrollbar-width:thin; scrollbar-color:var(--lavender-light) transparent; }
+  .chat-messages::-webkit-scrollbar { width:4px; }
+  .chat-messages::-webkit-scrollbar-thumb { background:var(--lavender-light); border-radius:4px; }
+
+  .msg { display:flex; gap:10px; align-items:flex-end; animation:msgPop 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+  @keyframes msgPop { from { opacity:0; transform:translateY(10px) scale(0.95); } to { opacity:1; transform:translateY(0) scale(1); } }
+  .msg.user { flex-direction:row-reverse; }
+  .msg-avatar { width:32px; height:32px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .msg.bot .msg-avatar { background:linear-gradient(135deg,var(--lavender-light),var(--lavender-mid)); }
+  .msg.user .msg-avatar { background:linear-gradient(135deg,var(--accent),#ff4d9e); }
+  .msg-bubble { max-width:82%; padding:11px 15px; border-radius:18px; font-size:14px; font-weight:600; line-height:1.6; }
+  .msg.bot .msg-bubble { background:var(--lavender-pale); border:1.5px solid var(--lavender-light); color:var(--text); border-bottom-left-radius:4px; }
+  .msg.user .msg-bubble { background:linear-gradient(135deg,var(--lavender-dark),var(--lavender)); color:white; border-bottom-right-radius:4px; }
+  .msg-time { font-size:10px; color:var(--text-light); margin-top:3px; display:block; font-weight:700; }
+  .msg.user .msg-time { text-align:right; }
+
+  .typing-indicator { display:none; padding:0 18px 4px; }
+  .typing-indicator.show { display:flex; }
+  .typing-dots { display:flex; align-items:center; gap:4px; padding:12px 15px; }
+  .typing-dots span { width:8px; height:8px; background:var(--lavender-mid); border-radius:50%; animation:typingBounce 1.2s ease-in-out infinite; }
+  .typing-dots span:nth-child(2) { animation-delay:0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay:0.4s; }
+  @keyframes typingBounce { 0%,100% { transform:translateY(0); opacity:0.5; } 50% { transform:translateY(-6px); opacity:1; } }
+
+  .quick-chips { padding:10px 18px; display:flex; gap:7px; flex-wrap:wrap; border-top:1px solid var(--lavender-light); background:var(--lavender-pale); }
+  .chip { background:white; border:1.5px solid var(--lavender-light); border-radius:20px; padding:5px 13px; font-size:12px; font-weight:700; color:var(--lavender-dark); cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+  .chip:hover { background:var(--lavender-dark); color:white; border-color:var(--lavender-dark); transform:translateY(-1px); }
+
+  .chat-input-area { padding:14px 18px; border-top:2px solid var(--lavender-light); display:flex; gap:10px; align-items:flex-end; background:white; }
+  .chat-input { flex:1; border:1.5px solid var(--lavender-light); border-radius:18px; padding:11px 16px; font-family:'Nunito',sans-serif; font-size:14px; font-weight:600; color:var(--text); outline:none; resize:none; max-height:90px; line-height:1.4; transition:border-color 0.2s; background:var(--lavender-pale); }
+  .chat-input:focus { border-color:var(--lavender-dark); background:white; }
+  .chat-send { width:42px; height:42px; border-radius:50%; flex-shrink:0; background:linear-gradient(135deg,var(--lavender-dark),var(--lavender)); border:none; color:white; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; box-shadow:0 4px 14px rgba(120,60,180,0.3); }
+  .chat-send:hover { transform:scale(1.1) rotate(20deg); box-shadow:0 6px 20px rgba(120,60,180,0.45); }
+
+  footer { background: linear-gradient(135deg, var(--lavender-deep), var(--lavender-dark)); color: white; padding: 48px 32px 28px; margin-top: 40px; }
+  .footer-inner { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 36px; margin-bottom: 36px; }
+  .footer-col h3 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 14px; color: var(--lavender-light); }
+  .footer-col p, .footer-col a { font-size: 14px; color: rgba(255,255,255,0.72); text-decoration: none; display: block; margin-bottom: 8px; font-weight: 600; transition: color 0.2s; }
+  .footer-col a:hover { color: white; }
+  .footer-bottom { text-align: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.15); font-size: 14px; color: rgba(255,255,255,0.6); font-weight: 600; }
+
+  @media(max-width: 960px) { .page-body { grid-template-columns: 1fr; } .ai-chat-panel { position: static; height: 560px; } }
+  @media(max-width: 480px) { .page-body { padding: 32px 14px; } .nav-link span { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Welcome to Karupi Pet Store!</span><span>Free Delivery on Orders Over ₹2000</span><span>100% Health Guaranteed Pets</span><span>24/7 Vet Support Available</span><span>Premium Dogs Starting ₹18,000</span><span>Adorable Cats &amp; Kittens Available</span><span>Exotic Fish &amp; Aquarium Collections</span><span>Beautiful Birds &amp; Parrots</span><span>Cute Rabbits &amp; Hamsters</span><span>Call Us: +91 9750784578</span>
+    <span>Welcome to Karupi Pet Store!</span><span>Free Delivery on Orders Over ₹2000</span><span>100% Health Guaranteed Pets</span><span>24/7 Vet Support Available</span><span>Premium Dogs Starting ₹18,000</span><span>Adorable Cats &amp; Kittens Available</span><span>Exotic Fish &amp; Aquarium Collections</span><span>Beautiful Birds &amp; Parrots</span><span>Cute Rabbits &amp; Hamsters</span><span>Call Us: +91 9750784578</span>
+  </div>
+</div>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="karupistore.html">
+      <div class="logo-icon">🐾</div>
+      <div><div class="logo-name">Karupi Pet Store</div><div class="logo-sub">Your Happy Pet Family</div></div>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="karupistore.html">🏠 Home</a>
+      <a class="nav-link" href="about.html">🐾 About</a>
+      <a class="nav-link" href="health-tips.html">🌿 Health Tips</a>
+      <a class="nav-link active" href="faqs.html">💬 FAQs</a>
+    </div>
+  </div>
+</header>
+
+<section class="faq-hero">
+  <div class="faq-hero-inner">
+    <h1>Got Questions? <span>We've Got Answers</span> 💬</h1>
+    <p>Browse our FAQs or chat with our smart AI pet assistant — works instantly, no internet required!</p>
+  </div>
+</section>
+
+<div class="page-body">
+
+  <!-- FAQ ACCORDION -->
+  <div>
+    <div class="faq-section-label">Frequently Asked Questions</div>
+    <div class="faq-section-sub">Click any question to see the answer. Or ask our AI assistant on the right!</div>
+
+    <div class="faq-category">
+      <div class="faq-category-title">🛒 Ordering & Payment</div>
+      <div class="faq-item" style="animation-delay:0.04s">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I place an order?<span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Browse our pets and click "Buy Now" or "Add to Cart". Fill in your delivery details and choose a payment method. Our team will call you within 24 hours to confirm and arrange delivery.</div>
+      </div>
+      <div class="faq-item" style="animation-delay:0.08s">
+        <button class="faq-q" onclick="toggleFaq(this)">What payment methods do you accept?<span class="faq-chevron">▼</span></button>
+        <div class="faq-a">We accept UPI / GPay, Debit/Credit Cards, Net Banking, and Cash on Delivery. All online payments are processed securely. COD is available for select locations.</div>
+      </div>
+      <div class="faq-item" style="animation-delay:0.12s">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I cancel or modify my order?<span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Yes! Cancel or modify within 12 hours of placing your order. Call +91 9750784578 or email info@karupipets.com. After 12 hours cancellations may not be possible as preparations begin.</div>
+      </div>
+      <div class="faq-item" style="animation-delay:0.16s">
+        <button class="faq-q" onclick="toggleFaq(this)">Is there a minimum order for free delivery?<span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Free delivery on all orders above ₹2,000. For orders below this, a nominal delivery charge applies based on your location, clearly shown before checkout.</div>
+      </div>
+    </div>
+
+    <div class="faq-category">
+      <div class="faq-category-title">🐾 Pets & Health</div>
+      <div class="faq-item" style="animation-delay:0.20s">
+        <button class="faq-q" onclick="toggleFaq(this)">Are all pets vaccinated and health-certified?<span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Absolutely! Every pet is vet-examined, vaccinated, dewormed, and comes with a health certificate. We also provide a 7-day health guarantee for all pets.</div>
+      </div>
+      <div class="faq-item" style="animation-delay:0.24s">
+        <button class="faq-q" onclick="toggleFaq(this)">What age are the pets when sold?<span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Puppies and kittens are a minimum of 8 weeks old. Birds are weaned and hand-tamed. Fish are juveniles or adults depending on species. Ages are listed on each product card.</div>
+      </div>
+      <div class="faq-item" style="animation-delay:0.28s">
+        <button class="faq-q" onclick="toggleFaq(this)">Do you offer vet support after purchase?<span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Yes! 24/7 free vet support for all customers. Call +91 9750784578 — our in-house vets guide you on diet, health, behaviour, and emergencies at no extra charge.</div>
+      </div>
+      <div class="faq-item" style="animation-delay:0.32s">
+        <button class="faq-q" onclick="toggleFaq(this)">Are exotic pets legally sourced?<span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Yes. All exotic species — reptiles, tortoises, turtles — are captive-bred, legally obtained, and come with documentation complying with the Indian Wildlife Protection Act.</div>
+      </div>
+    </div>
+
+    <div class="faq-category">
+      <div class="faq-category-title">🚚 Delivery & Shipping</div>
+      <div class="faq-item" style="animation-delay:0.36s">
+        <button class="faq-q" onclick="toggleFaq(this)">How long does delivery take?<span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Standard delivery is 3–5 business days. For Puducherry and nearby areas, same-day or next-day delivery may be available. We confirm the timeline when we call to verify your order.</div>
+      </div>
+      <div class="faq-item" style="animation-delay:0.40s">
+        <button class="faq-q" onclick="toggleFaq(this)">How are pets transported safely?<span class="faq-chevron">▼</span></button>
+        <div class="faq-a">We use ventilated, temperature-controlled carriers. Each pet travels with food, water, and bedding. Trained handlers ensure the animal arrives healthy and stress-free.</div>
+      </div>
+      <div class="faq-item" style="animation-delay:0.44s">
+        <button class="faq-q" onclick="toggleFaq(this)">Do you deliver all across India?<span class="faq-chevron">▼</span></button>
+        <div class="faq-a">We deliver to most major cities and towns. Some remote areas may have limited service. Call +91 9750784578 to confirm availability for your location.</div>
+      </div>
+    </div>
+
+    <div class="faq-category">
+      <div class="faq-category-title">🔄 Returns & Policies</div>
+      <div class="faq-item" style="animation-delay:0.48s">
+        <button class="faq-q" onclick="toggleFaq(this)">What is your return policy?<span class="faq-chevron">▼</span></button>
+        <div class="faq-a">We do not accept returns for pets as they are living animals. If a pet has an undisclosed pre-existing medical condition within 7 days, we provide treatment support or a replacement.</div>
+      </div>
+      <div class="faq-item" style="animation-delay:0.52s">
+        <button class="faq-q" onclick="toggleFaq(this)">What if my pet arrives unwell or injured?<span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Photograph the condition immediately and call us within 24 hours at +91 9750784578. We'll arrange veterinary treatment or a replacement at no cost to you.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI CHAT PANEL -->
+  <div class="ai-chat-panel">
+    <div class="chat-header">
+      <div class="chat-avatar">🐾</div>
+      <div>
+        <div class="chat-header-name">Karupi AI Assistant</div>
+        <div class="chat-header-status"><span class="status-dot"></span> Online — Ask me anything!</div>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="msg bot">
+        <div class="msg-avatar">🐾</div>
+        <div>
+          <div class="msg-bubble">Hi there! 👋 I'm Karupi's smart pet assistant. Ask me about pets, prices, delivery, care tips, or which pet is right for you! 🐕🐱🦜🐠</div>
+          <span class="msg-time">Just now</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="msg bot typing-indicator" id="typingIndicator">
+      <div class="msg-avatar">🐾</div>
+      <div class="msg-bubble" style="padding:0;border:none;background:transparent;">
+        <div class="typing-dots"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+
+    <div class="quick-chips" id="quickChips">
+      <button class="chip" onclick="sendChip(this)">🐕 Family dog?</button>
+      <button class="chip" onclick="sendChip(this)">💰 Cheapest pet?</button>
+      <button class="chip" onclick="sendChip(this)">🚚 Delivery time?</button>
+      <button class="chip" onclick="sendChip(this)">🐱 Cat care tips?</button>
+      <button class="chip" onclick="sendChip(this)">🐠 Fish setup?</button>
+      <button class="chip" onclick="sendChip(this)">📞 Contact?</button>
+    </div>
+
+    <div class="chat-input-area">
+      <textarea class="chat-input" id="chatInput" placeholder="Ask me anything about pets…" rows="1"
+        oninput="autoResize(this)" onkeydown="handleKey(event)"></textarea>
+      <button class="chat-send" onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h3>🐾 Karupi Pet Store</h3>
+      <p>Your trusted source for happy, healthy pets. We connect loving families with their perfect companions.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <a href="karupistore.html">🏠 Home</a>
+      <a href="about.html">🐾 About Us</a>
+      <a href="health-tips.html">🌿 Pet Health Tips</a>
+      <a href="faqs.html">💬 FAQs</a>
+    </div>
+    <div class="footer-col">
+      <h3>Support</h3>
+      <a href="faqs.html">FAQs & AI Chat</a>
+      <a href="#">Track Your Order</a>
+      <a href="#">Return Policy</a>
+    </div>
+    <div class="footer-col">
+      <h3>Contact Us</h3>
+      <p>📍 Puducherry</p>
+      <p>📞 +91 9750784578</p>
+      <p>✉️ info@karupipets.com</p>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2025 <strong>Karupi Pet Store</strong> — Made with ❤️ for pet lovers across India.</div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════
+//  KARUPI SMART BOT — FULLY LOCAL, NO API
+// ══════════════════════════════════════════
+
+const rules = [
+  // GREETINGS
+  { keys:['hello','hi','hey','helo','hai','vanakkam','namaste','good morning','good evening'],
+    fn:()=>`Hello! 👋 Welcome to Karupi Pet Store!\n\nI can help you with:\n• 🐾 Pet picks & prices\n• 🚚 Delivery & payment info\n• 🏥 Pet health & care tips\n• 📞 Contact & store info\n\nWhat would you like to know?` },
+
+  // CHEAPEST
+  { keys:['cheap','cheapest','affordable','low price','budget','minimum','least expensive','low cost'],
+    fn:()=>`💰 Our most affordable pets:\n\n• 🐠 Goldfish — ₹600\n• 🐹 Roborovski Hamster — ₹600\n• 🐹 Winter White Hamster — ₹700\n• 🐠 Betta Fish — ₹800\n• 🐹 Syrian Hamster — ₹800\n• 🐦 Budgerigar — ₹1,200\n• 🐢 Red-eared Slider Turtle — ₹2,500\n\nAll come vaccinated & vet-certified! 🏥` },
+
+  // MOST EXPENSIVE / PREMIUM
+  { keys:['expensive','premium','luxury','best','highest','top','most popular'],
+    fn:()=>`🌟 Our premium pets:\n\n• 🦜 African Grey Parrot — ₹45,000\n• 🐕 German Shepherd — ₹32,000\n• 🐈 Maine Coon — ₹30,000\n• 🐕 Golden Retriever — ₹28,000\n• 🐕 Siberian Husky — ₹28,000\n• 🐈 Bengal Cat — ₹25,000\n\nAll come with full health certification! 💜` },
+
+  // ALL PRICES
+  { keys:['price','cost','how much','rate','charges','rupees','₹','list','all pet'],
+    fn:()=>`💰 Our pet prices:\n\n🐕 Dogs: ₹9,000 – ₹32,000\n🐱 Cats: ₹12,000 – ₹30,000\n🦜 Birds: ₹1,200 – ₹45,000\n🐠 Fish: ₹600 – ₹12,000\n🐰 Rabbits: ₹3,000 – ₹8,000\n🐹 Hamsters: ₹600 – ₹800\n🦎 Reptiles: ₹4,000 – ₹15,000\n🐢 Tortoise/Turtle: ₹2,500 – ₹15,000\n\nAll include vaccination & health cert! 📞 +91 9750784578` },
+
+  // DOGS
+  { keys:['dog','puppy','pup','labrador','lab','golden retriever','german shepherd','gsd','beagle','husky','pomeranian','canine'],
+    fn:(q)=>{
+      if(q.match(/family|kid|child|children|baby|son|daughter/))
+        return `🐕 Best dogs for families & kids:\n\n1. **Golden Retriever** ₹28,000 — Gentle, joyful, amazing with children\n2. **Labrador** ₹22,000 — Energetic, smart & very trainable\n3. **Beagle** ₹18,000 — Curious, merry, loves children\n4. **Pomeranian** ₹9,000 — Fluffy, apartment-friendly\n\nAll vaccinated & vet-certified! 📞 +91 9750784578`;
+      if(q.match(/apartment|flat|small space|indoor/))
+        return `🏠 Best dogs for apartments:\n\n• **Pomeranian** ₹9,000 — Small, fluffy, perfect for flats\n• **Beagle** ₹18,000 — Adaptable and loves indoor play\n\nCall us: 📞 +91 9750784578`;
+      if(q.match(/guard|security|protect|fierce/))
+        return `🛡️ Best guard dogs:\n\n• **German Shepherd** ₹32,000 — Alert, loyal, courageous\n• **Siberian Husky** ₹28,000 — Intimidating presence, great instincts\n\n📞 +91 9750784578`;
+      return `🐕 Our dogs:\n\n• **Golden Retriever** ₹28,000 — Great with kids, very friendly\n• **Labrador** ₹22,000 — Intelligent & energetic\n• **German Shepherd** ₹32,000 — Loyal guard dog\n• **Beagle** ₹18,000 — Curious & family-friendly\n• **Siberian Husky** ₹28,000 — Stunning wolf-like looks\n• **Pomeranian** ₹9,000 — Fluffy & apartment-friendly\n\nAll vaccinated! 📞 +91 9750784578`;
+    }},
+
+  // CATS
+  { keys:['cat','kitten','persian','bengal','siamese','maine coon','feline'],
+    fn:(q)=>{
+      if(q.match(/calm|indoor|apartment|quiet/))
+        return `🐱 Best calm/indoor cats:\n\n• **Persian Cat** ₹15,000 — Very calm, cuddly, low energy\n• **Siamese Kitten** ₹12,000 — Affectionate, loves attention\n\nPerfect for home living! 🏠`;
+      return `🐱 Our cats:\n\n• **Persian Cat** ₹15,000 — Calm, cuddly, luxurious fur\n• **Bengal Cat** ₹25,000 — Wild-looking, very playful\n• **Siamese Kitten** ₹12,000 — Talkative & affectionate\n• **Maine Coon** ₹30,000 — Gentle giant, dog-like personality\n\nAll vet-certified! 📞 +91 9750784578`;
+    }},
+
+  // BIRDS
+  { keys:['bird','parrot','budgie','budgerigar','cockatiel','conure','lovebird','african grey','feather'],
+    fn:(q)=>{
+      if(q.match(/talk|speak|mimic|word|voice/))
+        return `🗣️ Best talking birds:\n\n• **African Grey Parrot** ₹45,000 — World's best talker, incredible vocabulary\n• **Budgerigar** ₹1,200 — Can learn many words, great beginner bird\n• **Cockatiel** ₹3,500 — Loves whistling tunes\n\nAll hand-tamed! 🦜`;
+      if(q.match(/beginner|easy|first|starter/))
+        return `🌟 Best birds for beginners:\n\n• **Budgerigar** ₹1,200 — Easiest bird, very social\n• **Cockatiel** ₹3,500 — Gentle, melodious, easy to tame\n• **Lovebird Pair** ₹4,000 — Adorable bonded pair\n\nCome with care guidance! 🦜`;
+      return `🦜 Our birds:\n\n• **African Grey Parrot** ₹45,000 — Highly intelligent\n• **Sun Conure** ₹18,000 — Stunning orange-yellow\n• **Lovebird Pair** ₹4,000 — Beautiful bonded pair\n• **Cockatiel** ₹3,500 — Friendly & melodious\n• **Budgerigar** ₹1,200 — Perfect beginner bird\n\nAll weaned & vet-checked! 📞 +91 9750784578`;
+    }},
+
+  // FISH
+  { keys:['fish','aquarium','betta','clownfish','goldfish','arowana','koi','nemo','tank','water'],
+    fn:(q)=>{
+      if(q.match(/beginner|easy|first|setup|start/))
+        return `🐠 Best fish for beginners:\n\n• **Goldfish** ₹600 — Hardy, low maintenance, classic\n• **Betta Fish** ₹800 — Stunning solo fish for small tanks\n\n💡 Setup tip: Cycle your tank 4–6 weeks before adding fish. Change 25–30% water weekly!`;
+      return `🐠 Our fish:\n\n• **Betta Fish** ₹800 — Vibrant, flowing fins\n• **Clownfish (Nemo)** ₹2,500 — Bright orange, loves anemones\n• **Goldfish** ₹600 — Classic, very hardy\n• **Koi Fish Pair** ₹5,000 — Perfect for ponds\n• **Arowana** ₹12,000 — Majestic dragon fish\n\n📞 +91 9750784578`;
+    }},
+
+  // RABBITS
+  { keys:['rabbit','bunny','lop','angora','lionhead','mini rex','dutch'],
+    fn:()=>`🐰 Our rabbits:\n\n• **Holland Lop** ₹5,500 — Floppy-eared, loves cuddles\n• **Angora Rabbit** ₹8,000 — Ultra-fluffy cloud-like coat\n• **Lionhead Rabbit** ₹6,800 — Fluffy mane, regal look\n• **Mini Rex** ₹3,500 — Velvety fur, very playful\n• **Dutch Rabbit** ₹3,000 — Classic two-toned, calm\n\nAll captive-bred & legal! 📞 +91 9750784578` },
+
+  // HAMSTERS
+  { keys:['hamster','syrian','roborovski','robo','winter white','dwarf hamster'],
+    fn:()=>`🐹 Our hamsters:\n\n• **Syrian Hamster** ₹800 — Fluffy, great for kids\n• **Roborovski Hamster** ₹600 — Tiny, fastest hamster, fun to watch\n• **Winter White Hamster** ₹700 — Changes coat to white in winter\n\nPerfect starter pets! All vet-checked. 📞 +91 9750784578` },
+
+  // REPTILES
+  { keys:['reptile','lizard','snake','gecko','dragon','bearded','python','corn snake','crested','leopard gecko','scale'],
+    fn:()=>`🦎 Our reptiles:\n\n• **Bearded Dragon** ₹12,000 — Docile, loves basking\n• **Ball Python** ₹15,000 — Calm, beginner-friendly snake\n• **Crested Gecko** ₹8,000 — No live feeding needed\n• **Corn Snake** ₹4,000 — Non-venomous, stunning patterns\n• **Leopard Gecko** ₹5,000 — No UV needed, low maintenance\n\nAll captive-bred & legally sourced! 📞 +91 9750784578` },
+
+  // TORTOISE / TURTLE
+  { keys:['tortoise','turtle','star tortoise','slider','painted','map turtle','shell'],
+    fn:()=>`🐢 Tortoises & Turtles:\n\n• **Star Tortoise** ₹15,000 — Majestic, lives 80+ years!\n• **Red-eared Slider** ₹2,500 — Popular aquatic turtle\n• **Painted Turtle** ₹3,000 — Vibrant red-yellow markings\n• **Map Turtle** ₹3,500 — Active swimmer\n\nAll captive-bred & legal! 📞 +91 9750784578` },
+
+  // DELIVERY
+  { keys:['delivery','deliver','shipping','ship','how long','when','days','arrive'],
+    fn:()=>`🚚 Delivery info:\n\n• Standard: 3–5 business days across India\n• Puducherry & nearby: same-day / next-day available\n• Free delivery on orders above ₹2,000\n• Pets travel in ventilated, temperature-controlled carriers\n• Our team calls within 24 hours of your order to confirm!` },
+
+  // PAYMENT
+  { keys:['payment','pay','upi','gpay','card','cod','cash','net banking','how to pay'],
+    fn:()=>`💳 Payment methods:\n\n• UPI / GPay ✅\n• Debit / Credit Card ✅\n• Net Banking ✅\n• Cash on Delivery ✅\n\nAll payments are secure. COD available for most locations. You'll see the full amount before confirming!` },
+
+  // HEALTH / VACCINE
+  { keys:['vaccin','health','guarantee','certif','deworm','safe','healthy','disease','sick'],
+    fn:()=>`🏥 Health guarantee:\n\n• All pets are vet-examined before sale\n• Fully vaccinated & dewormed\n• Health certificate provided with every pet\n• 7-day health guarantee on all purchases\n• Free 24/7 vet support: 📞 +91 9750784578` },
+
+  // VET / SUPPORT
+  { keys:['vet','doctor','support','after','emergency','medical','advice'],
+    fn:()=>`🩺 Vet support:\n\nWe offer FREE 24/7 vet support for all Karupi customers!\n\n📞 Call: +91 9750784578\n\nOur in-house vets help with diet, behaviour, health, and emergencies. You're never alone after buying from us! 🐾` },
+
+  // RETURN
+  { keys:['return','refund','exchange','policy','money back'],
+    fn:()=>`🔄 Return policy:\n\nWe don't accept returns for pets (they are living beings 🐾). However:\n\n• If your pet has an undisclosed condition within 7 days → we provide treatment or a replacement\n• If pet arrives unwell → call us within 24 hours with photos at +91 9750784578\n\nYour pet's health is our responsibility! 💜` },
+
+  // CANCEL
+  { keys:['cancel','cancell','modify','change order','stop order'],
+    fn:()=>`❌ Cancellations:\n\nYou can cancel or modify your order within 12 hours of placing it.\n\n📞 Call: +91 9750784578\n✉️ Email: info@karupipets.com\n\nPlease act quickly — preparations begin soon after ordering!` },
+
+  // CONTACT
+  { keys:['contact','phone','number','call','email','address','location','where','store','puducherry','pondicherry'],
+    fn:()=>`📞 Contact us:\n\n• Phone: +91 9750784578 (7 days a week)\n• Email: info@karupipets.com\n• Location: Puducherry, India\n• Vet helpline: +91 9750784578 (24/7 free)\n\nWe'd love to help you find your perfect pet! 🐾` },
+
+  // FREE DELIVERY / OFFERS
+  { keys:['free','free delivery','offer','discount','deal','promo'],
+    fn:()=>`🎁 Current offers:\n\n• ✅ FREE delivery on orders above ₹2,000\n• ✅ Free 24/7 vet support for all customers\n• ✅ Free health certificate with every pet\n\nFor seasonal discounts, call us: 📞 +91 9750784578` },
+
+  // BEGINNER / FIRST PET
+  { keys:['beginner','first pet','first time','starter','easy','low maintenance','simple'],
+    fn:()=>`🌟 Best pets for first-time owners:\n\n• 🐹 **Syrian Hamster** ₹800 — Easy, small space needed\n• 🐠 **Goldfish** ₹600 — Hardy, classic, relaxing\n• 🐦 **Budgerigar** ₹1,200 — Social, easy to tame\n• 🐰 **Dutch Rabbit** ₹3,000 — Calm & friendly\n• 🦎 **Leopard Gecko** ₹5,000 — No UV, low maintenance\n\nAll come with full vet guidance! 🏥` },
+
+  // KIDS
+  { keys:['kid','child','children','son','daughter','baby','toddler','young','family'],
+    fn:()=>`👶 Best pets for kids:\n\n• 🐕 **Golden Retriever** ₹28,000 — Loves children, very gentle\n• 🐕 **Labrador** ₹22,000 — Patient, playful & smart\n• 🐹 **Syrian Hamster** ₹800 — Safe & easy to handle\n• 🐰 **Holland Lop** ₹5,500 — Gentle & cuddly bunny\n• 🐦 **Budgerigar** ₹1,200 — Cheerful & safe\n\nAll vet-certified & family-safe! 🐾` },
+
+  // APARTMENT
+  { keys:['apartment','flat','small house','small space','condo','no garden','no yard'],
+    fn:()=>`🏢 Best pets for apartments:\n\n• 🐹 **Hamsters** from ₹600 — Tiny, quiet, no space needed\n• 🐠 **Fish** from ₹600 — Peaceful, beautiful, low noise\n• 🐦 **Budgerigar** ₹1,200 — Compact & cheerful\n• 🐕 **Pomeranian** ₹9,000 — Small dog, loves indoor life\n• 🐱 **Persian Cat** ₹15,000 — Calm & low-energy\n\n📞 +91 9750784578 for personal recommendations!` },
+
+  // CAT CARE
+  { keys:['cat care','cat food','cat tip','cat health','feeding cat','litter box','kitten care'],
+    fn:()=>`🐱 Cat care tips:\n\n• Feed wet food — cats rarely drink enough water\n• Never give dog food — cats need taurine only in cat food\n• Scoop litter daily; full change once a week\n• Annual vet checkups are essential\n• Toxic: onions, garlic, grapes, chocolate, xylitol\n\nOur vets can help: 📞 +91 9750784578 🏥` },
+
+  // DOG CARE
+  { keys:['dog care','dog food','dog tip','dog health','feeding dog','walk','puppy care'],
+    fn:()=>`🐕 Dog care tips:\n\n• Feed age-appropriate food (puppy/adult/senior)\n• Daily walks — 30 min for small breeds, 60–90 min for large\n• Brush teeth 3× per week to prevent dental disease\n• Vaccinate annually; deworm every 3 months\n• Toxic: grapes, chocolate, onions, garlic, xylitol\n\nFor personal advice: 📞 +91 9750784578 🏥` },
+
+  // AQUARIUM SETUP
+  { keys:['aquarium setup','tank setup','fish care','fish tip','fish health','water change','filter'],
+    fn:()=>`🐠 Aquarium setup tips:\n\n1. Cycle the tank 4–6 weeks before adding fish\n2. Change 25–30% of water weekly\n3. Test water: pH, ammonia, nitrite, nitrate\n4. Use a filter rated for 2× your tank volume\n5. Dechlorinate tap water before use\n6. Feed only what fish eat in 2–3 minutes\n\nWe sell all types of fish! 📞 +91 9750784578` },
+
+  // THANK YOU
+  { keys:['thank','thanks','thank you','thx','helpful','great','awesome','nice'],
+    fn:()=>`You're so welcome! 😊🐾\n\nWe love helping pet lovers! If you need anything else — prices, care tips, or want to order — just ask or call us: 📞 +91 9750784578\n\nHope to see a new furry friend in your home soon! 💜` },
+
+  // BYE
+  { keys:['bye','goodbye','see you','ok bye','take care','cya'],
+    fn:()=>`Goodbye! 🐾💜\n\nWe hope to welcome a furry companion into your home soon! Shop online or visit us in Puducherry.\n\n📞 +91 9750784578 — always here for you!` },
+];
+
+const FALLBACK = `🐾 Great question! I'm not sure about that one.\n\nOur team can help right away:\n📞 Call: +91 9750784578\n✉️ Email: info@karupipets.com\n\nOr try asking me about:\n🐕 Dogs • 🐱 Cats • 🦜 Birds • 🐠 Fish\n💰 Prices • 🚚 Delivery • 🏥 Health tips`;
+
+function getBotReply(input) {
+  const q = input.toLowerCase().trim();
+  for (const rule of rules) {
+    if (rule.keys.some(k => q.includes(k))) return rule.fn(q);
+  }
+  return FALLBACK;
+}
+
+// ── UI ──
+const messagesEl = document.getElementById('chatMessages');
+const inputEl    = document.getElementById('chatInput');
+const typingEl   = document.getElementById('typingIndicator');
+
+function getTime() {
+  return new Date().toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
+}
+function fmt(text) {
+  return text.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+}
+function appendMsg(role, text) {
+  const isBot = role === 'bot';
+  const d = document.createElement('div');
+  d.className = `msg ${isBot ? 'bot' : 'user'}`;
+  d.innerHTML = `<div class="msg-avatar">${isBot ? '🐾' : '👤'}</div><div><div class="msg-bubble">${fmt(text)}</div><span class="msg-time">${getTime()}</span></div>`;
+  messagesEl.appendChild(d);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function sendMessage() {
+  const text = inputEl.value.trim();
+  if (!text) return;
+  document.getElementById('quickChips').style.display = 'none';
+  appendMsg('user', text);
+  inputEl.value = '';
+  inputEl.style.height = 'auto';
+  typingEl.classList.add('show');
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+  setTimeout(() => {
+    typingEl.classList.remove('show');
+    appendMsg('bot', getBotReply(text));
+  }, 400 + Math.random() * 600);
+}
+function sendChip(btn) { inputEl.value = btn.textContent.trim(); sendMessage(); }
+function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+function autoResize(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 90) + 'px'; }
+
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  document.querySelectorAll('.faq-q.open').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+  if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
+}
+</script>
+</body>
+</html>
